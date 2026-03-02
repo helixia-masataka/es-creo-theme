@@ -1,0 +1,58 @@
+@use"../settings/" as * ;
+/* パンくずリストのスタイル */
+.c-breadcrumb {
+    margin: rem(10) 0 rem(20);
+    font-size: rem(12);
+    color: #666;
+}
+
+.c-breadcrumb ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+/* 区切り文字（ > ）を追加 */
+.c-breadcrumb li:not(:last-child)::after {
+    content: ">";
+    margin: 0 rem(8);
+    color: #ccc;
+    font-weight: normal;
+}
+
+.c-breadcrumb a {
+    text-decoration: none;
+    color: #333; /* リンクの色 */
+    transition: color 0.3s;
+}
+
+.c-breadcrumb a:hover {
+    color: #0073aa; /* ホバー時の色 */
+    text-decoration: underline;
+}
+
+/* 現在のページ（最後の項目） */
+.c-breadcrumb li:last-child {
+    font-weight: bold;
+    color: #333;
+    max-width: rem(200); /* 必要に応じて調整 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@include mq(600) {
+    .c-breadcrumb {
+        font-size: rem(13);
+    }
+    .c-breadcrumb li:last-child {
+        max-width: rem(150); /* スマホではタイトル表示幅を狭める */
+    }
+}

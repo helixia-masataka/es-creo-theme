@@ -1,0 +1,62 @@
+@use 'functions' as *;
+:root {
+    /* =========================================
+      ①カラーパレット(グローバルカラーの登録)
+        デザインで使用する色をここで定義します。
+        ただし、使用頻度が極端に少ない(1~2箇所だけなど)場合は、都度直接指定します。
+        2つの階層に分けて登録します。
+        ・テーマカラー：主にデザインを構成する色を定義します。
+        ・ベースカラー：主に無彩色(白・黒・グレー)を定義します。
+    ========================================= */
+    // テーマカラー
+    --global-green: #0c6768;
+    --global-green-deep: #084c4d;
+    --global-brown: #690e0d;
+
+    // ベースカラー
+    --global-white: #ffffff;
+    --global-black: #222222;
+    --global-gray: #f1efec;
+
+    /* =========================================
+       ②デザイン構成色
+       ・どこで使用するかを「役割」で定義して、①の変数を割り当てます。
+       ・HTML/CSS側では、原則として下記の変数を使用します。
+    ========================================= */
+    // デザインにおける役割の定義
+    --color-primary: var(--global-green); // メインカラー
+    --color-secondary: var(--global-green-deep); // サブカラー
+    --color-accent: var(--global-brown); // アクセントカラー
+
+    // 背景色
+    --bg-body: var(--global-white); // ページ全体の背景
+    --bg-surface: var(--global-gray); // カードやセクションの背景
+
+    // 文字色
+    --text-body: var(--global-black); // 基本の文字色
+    --text-sub: var(--global-gray); // 薄い文字色
+    --text-link: var(--global-brown); // リンク色（primaryを使うことも多い）
+
+    /* =========================================
+       ③ タイポグラフィ・レイアウト（その他）
+    ========================================= */
+    // font-family
+    --font-jp: 'Noto Sans JP', sans-serif;
+    --font-en: 'Poppins', sans-serif;
+
+    // font-weight
+    --medium: 500;
+    --bold: 700;
+
+    //共通コンテナ(インナー)
+    --container: calc(var(--limit-bp) + (var(--container-side) * 2));
+    --container-side: #{fluid(18px, 40px)};
+    --container-l: #{fluid(339px, 1100px)};
+    --container-m: #{fluid(295px, 960px)};
+    --limit-bp: #{$limit-bp};
+    --min-bp: #{$default-min-bp};
+    --max-bp: #{$default-max-bp};
+
+    //ヘッダー高さ
+    --header-height: 90;
+}

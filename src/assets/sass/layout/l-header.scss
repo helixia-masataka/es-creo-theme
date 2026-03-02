@@ -1,0 +1,67 @@
+@use '../settings/' as *;
+
+.l-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding-block: rem(20);
+    
+}
+
+.l-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+.l-header__logo {
+    transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+    opacity: 1;
+    visibility: visible;
+}
+.l-header__nav {
+    display: flex;
+    background-color: var(--color-base);
+    padding: rem(32) 0;
+    border-radius: 48px;
+    gap: rem(32);
+}
+.l-header__lists {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: rem(28);
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    @include cq(1200) {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+.l-header__btns {
+    display: flex;
+    gap: rem(20);
+    flex-direction: column;
+    align-items: flex-start;
+    width: rem(220);
+}
+
+.l-header__list a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: rem(15);
+    line-height: normal;
+    letter-spacing: em(1.2,15);
+    text-transform: uppercase;
+    &:hover {
+        font-weight: var(--bold);
+        color: var(--color-primary);
+    }
+}

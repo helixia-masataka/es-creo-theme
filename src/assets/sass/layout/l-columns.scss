@@ -1,0 +1,39 @@
+@use"../settings/" as * ;
+//* ===============================================
+//# 2カラムレイアウト (メイン + サイドバー)
+//=============================================== *//
+
+/* 親ラッパー */
+.l-columns {
+  width: 100%;
+  padding-top: fluid(60, 120);
+}
+
+.l-columns__inner {
+  display: grid;
+  gap: fluid(40, 60);
+  grid-template-columns: 1fr; /* スマホは1列 */
+
+  /* コンテナクエリを使用 (1024px以上で2カラム) */
+  /* 親(.l-container)の幅が1024px以上あれば横並びにする */
+  @include cq(1024) {
+    grid-template-columns: minmax(0, 1fr) fluid(300,400);
+    align-items: start;
+  }
+}
+
+/* メインカラム */
+.l-columns__main {
+  display: flex;
+  flex-direction: column;
+  gap: fluid(60, 100);
+  min-width: 0; /* Grid内でのはみ出し防止 */
+}
+
+/* サイドバー */
+.l-columns__side {
+  display: flex;
+  flex-direction: column;
+  gap: fluid(20, 40);
+  min-width: 0;
+}

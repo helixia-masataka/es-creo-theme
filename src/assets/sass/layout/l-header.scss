@@ -26,8 +26,7 @@
 }
 .l-header__nav {
     display: flex;
-    background-color: var(--color-base);
-    padding: rem(32) 0;
+    // background-color: var(--color-base);
     border-radius: 48px;
     gap: rem(32);
 }
@@ -36,13 +35,14 @@
     margin: 0;
     padding: 0;
     display: flex;
-    gap: rem(28);
+    gap: fluid(56,28);
     align-items: center;
     flex-direction: column;
     position: relative;
-    @include cq(1200) {
-        flex-direction: row;
+    @include mq(1280) {
         align-items: flex-start;
+        flex-direction: row;
+        padding-inline: rem(20);
     }
 }
 .l-header__btns {

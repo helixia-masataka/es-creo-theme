@@ -1,5 +1,127 @@
 @use '../settings/' as *;
 //* ===============================================
-//#プライバシポリシー、サンクスページ、404などのスタイル
+//# プライバシーポリシー、サンクスページ、404などのスタイル
 //=============================================== *//
 
+.p-static {
+    padding: fluid(60, 100) 0;
+}
+
+.p-static__inner {
+    background-color: var(--global-white);
+    padding: fluid(30, 60);
+    border-radius: rem(8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+    h1, h2, h3 {
+        color: var(--color-primary);
+        font-weight: var(--bold);
+    }
+
+    h1 {
+        font-size: rem(24);
+        margin-bottom: rem(30);
+        @include mq(md) {
+            font-size: rem(32);
+        }
+    }
+
+    h2 {
+        font-size: rem(20);
+        margin-top: rem(40);
+        margin-bottom: rem(20);
+        padding-bottom: rem(10);
+        border-bottom: 2px solid var(--global-bg-gray);
+        @include mq(md) {
+            font-size: rem(24);
+        }
+    }
+
+    p {
+        font-size: rem(15);
+        line-height: 1.8;
+        margin-bottom: rem(20);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    ol, ul {
+        margin-bottom: rem(20);
+        padding-left: rem(20);
+        
+        li {
+            font-size: rem(15);
+            line-height: 1.8;
+            margin-bottom: rem(8);
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ol, ul {
+            margin-top: rem(8);
+            margin-bottom: 0;
+        }
+    }
+
+    ul {
+        list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
+    }
+}
+
+// 汎用ボタン
+.p-static__btn {
+    text-align: center;
+    margin-top: rem(40);
+}
+
+/* =========================================
+   各ページ特有のスタイル (bodyクラスによる上書き)
+   ========================================= */
+
+// プライバシーポリシー独自
+.page-privacy-policy, .page-privacy {
+    .p-static__inner {
+        h1 {
+            text-align: center;
+        }
+    }
+}
+
+// サンクスページ独自
+.page-thanks {
+    .p-static__inner {
+        text-align: center;
+
+        h1 {
+            margin-bottom: rem(20);
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: rem(10);
+            line-height: 1.6;
+        }
+    }
+}
+
+// 404ページ独自
+.error404 {
+    .p-static__inner {
+        text-align: center;
+        padding: fluid(60, 100) rem(20);
+
+        .c-heading.--h1 {
+            margin-bottom: rem(20);
+            font-size: fluid(24, 32);
+        }
+    }
+}

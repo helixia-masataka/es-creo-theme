@@ -2,8 +2,12 @@
 @use 'sass:meta';
 
 // ==============================================
-//  Global Settings
+//  グローバル設定
 // ==============================================
+// ルートフォントサイズ
+$root-font-size: 16px !default;
+
+// デフォルト値
 $default-min-bp: 375px !default;
 $default-max-bp: 1440px !default;
 $limit-bp: 1920px !default;
@@ -11,10 +15,9 @@ $limit-bp: 1920px !default;
 $default-min-cqi: 335px !default;//スマホカンプ(375px)のときの、メインカラムのコンテナの幅（実測値）
 $default-max-cqi: 820px !default;// PCカンプ(1440px)のときの、メインカラムのコンテナの幅（実測値）
 
-$root-font-size: 16px !default;
 
 // ==============================================
-//  Helpers
+//  補助関数
 // ==============================================
 
 // 単位削除
@@ -49,10 +52,10 @@ $root-font-size: 16px !default;
 }
 
 // ==============================================
-//  Main Functions (Pure Math)
+//  Fluid関数
 // ==============================================
 
-// 1. Viewport Fluid (画面幅基準)
+// Viewport Fluid (画面幅基準)
 @function fluid($min-size,$max-size,$min-bp: $default-min-bp,$max-bp: $default-max-bp,$limit: $limit-bp) {
     $y1: _strip-unit($min-size);
     $y2: _strip-unit($max-size);
@@ -78,7 +81,32 @@ $root-font-size: 16px !default;
     @return clamp(#{$clamp-min}, #{$slope-vw} + #{$intercept-rem}, #{$clamp-max});
 }
 
-// 2. Container Fluid (コンテナ幅基準)
+// ==============================================
+//  PC以降の拡張専用 Fluid関数
+// ==============================================
+@function fluid-limit($max-size, $limit-size: null) {
+  // PCカンプ幅とLimit幅を取得 (単位を削除して計算用にする)
+  $x1: _strip-unit($default-max-bp);
+  $x2: _strip-unit($limit-bp);
+
+  // もし第2引数(limit-size)が省略された場合、自動計算
+  @if $limit-size == null {
+    // 画面幅の拡大比率を求める (例: 1920 / 1440 = 1.333...)
+    $ratio: math.div($x2, $x1);
+    
+    // PCサイズに比率を掛けて、Limitサイズを自動算出
+    $calculated-limit: _strip-unit($max-size) * $ratio;
+    
+    $limit-size: $calculated-limit;
+  }
+
+  // 算出した（または手入力された）2点でfluidを回す
+  @return fluid($max-size, $limit-size, $default-max-bp, $limit-bp, $limit-bp);
+}
+
+// ==============================================
+//  コンテナ幅基準のFluid関数
+// ==============================================
 @function fluid-c(
     $min-size,
     $max-size,

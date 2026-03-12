@@ -112,3 +112,21 @@ $breakpoints: (
     // line-height: normal;
     // font-style: normal;
 }
+
+// ==============================================
+// V字（縮小→拡大）自動展開
+// ==============================================
+
+// $property : height や padding などのCSSプロパティ名
+// $min-size : SP（$default-min-bp）の時のサイズ
+// $max-size  : PC（$default-max-bp）の時のサイズ
+@mixin fluid-v($property, $min-size, $max-size) {
+  // ① SP 〜 PCカンプ までの挙動（縮小など）
+  #{$property}: fluid($min-size, $max-size);
+
+  // ② PCカンプ 〜 Limit幅 までの挙動（自動計算で拡大）
+  // メディアクエリのブレイクポイントも 1440 の直書きから変数へ変更！
+  @include mq($default-max-bp) {
+    #{$property}: fluid-limit($max-size);
+  }
+}

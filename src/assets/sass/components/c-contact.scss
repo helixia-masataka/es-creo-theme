@@ -1,0 +1,161 @@
+@use"../settings/" as * ;
+
+// 汎用フォームパーツ
+.c-contact-input,
+.c-contact-textarea,
+.c-contact-select {
+    width: 100%;
+    padding: rem(15);
+    font-size: rem(16);
+    color: var(--text-body);
+    background-color: var(--global-bg-gray);
+    border: 1px solid transparent;
+    border-radius: rem(6);
+    transition: border-color 0.3s, background-color 0.3s;
+
+    &:focus {
+        outline: none;
+        background-color: var(--global-white);
+        border-color: var(--color-primary);
+    }
+
+    &::placeholder {
+        color: var(--text-sub);
+    }
+}
+
+.c-contact-textarea {
+    resize: vertical;
+    min-height: 200px;
+}
+
+// Select wrapper for custom arrow
+.c-contact-select-wrapper {
+    position: relative;
+    width: 100%;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: rem(15);
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6px 5px 0 5px;
+        border-color: var(--text-sub) transparent transparent transparent;
+        pointer-events: none;
+    }
+
+    .c-contact-select {
+        appearance: none;
+        padding-right: rem(40);
+        cursor: pointer;
+    }
+}
+
+// Radio and Checkbox Groups
+.c-contact-radio-group,
+.c-contact-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(15) rem(25);
+    
+    // CF7 wraps each item in a span
+    .wpcf7-list-item {
+        display: inline-flex;
+        margin: 0;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: rem(8);
+        cursor: pointer;
+        font-size: rem(15);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        appearance: none;
+        width: rem(20);
+        height: rem(20);
+        border: 2px solid var(--text-sub);
+        background-color: var(--global-white);
+        cursor: pointer;
+        position: relative;
+        transition: border-color 0.2s;
+
+        &:checked {
+            border-color: var(--color-primary);
+        }
+    }
+
+    input[type="radio"] {
+        border-radius: 50%;
+
+        &:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: rem(10);
+            height: rem(10);
+            border-radius: 50%;
+            background-color: var(--color-primary);
+        }
+    }
+
+    input[type="checkbox"] {
+        border-radius: rem(4);
+
+        &:checked {
+            background-color: var(--color-primary);
+            &::after {
+                content: "";
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                width: rem(5);
+                height: rem(10);
+                border-right: 2px solid var(--global-white);
+                border-bottom: 2px solid var(--global-white);
+            }
+        }
+    }
+}
+
+// 送信ボタンは c-contact-button.scss に類似させるか、ここで上書き
+.p-contact-form__submit {
+    .wpcf7-spinner {
+        margin-top: 15px;
+    }
+}
+
+.c-contact-button--submit {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: rem(280);
+    padding: rem(18) rem(30);
+    font-size: rem(16);
+    font-weight: var(--bold);
+    color: var(--global-white);
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 50px; // Pill shape
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

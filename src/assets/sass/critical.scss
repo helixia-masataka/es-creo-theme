@@ -1,0 +1,11 @@
+// Critical CSS — ファーストビューに必要な最小限のスタイルのみ
+// ビルド: Gulpで css/critical.css にコンパイルされ、PHPで <style> タグとしてインライン出力
+
+// 1. 基盤（リセット・変数・ベース）
+@use "settings";
+
+// 2. ヘッダー（固定ヘッダーはファーストビューに常に表示）
+@use "layout/l-header";
+
+// 3. トップページ 全体のスタイル（一括でクリティカルCSS化）
+@use "pages/p-home";

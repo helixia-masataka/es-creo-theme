@@ -2,3 +2,80 @@
 //* ===============================================
 //# お問い合わせ専用ページ
 //=============================================== *//
+
+.p-contact-form__lists {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(30, 40);
+    margin-bottom: fluid(40, 60);
+    max-width: rem(800);
+    margin-inline: auto;
+}
+
+.p-contact-form__list {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    @include mq(md) {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: rem(40);
+        padding-bottom: rem(30);
+        border-bottom: 1px solid var(--global-bg-darker);
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+    }
+}
+
+.p-contact-form__term {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+
+    @include mq(md) {
+        width: 240px;
+        flex-shrink: 0;
+        padding-top: rem(10); // align with input field
+    }
+}
+
+.p-contact-form__term-text {
+    font-size: rem(16);
+    font-weight: var(--bold);
+}
+
+.p-contact-form__label {
+    font-size: rem(12);
+    font-weight: var(--bold);
+    padding: rem(2) rem(8);
+    border-radius: rem(4);
+    line-height: 1.4;
+
+    &.--required {
+        color: var(--global-white);
+        background-color:var(--bg-danger);
+    }
+
+    &.--optional {
+        color: var(--text-body);
+        background-color: var(--global-bg-gray);
+    }
+}
+
+.p-contact-form__desc {
+    width: 100%;
+
+    // Contact Form 7 Wrappers
+    .wpcf7-form-control-wrap {
+        display: block;
+        width: 100%;
+    }
+}
+

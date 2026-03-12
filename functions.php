@@ -1,17 +1,45 @@
 <?php
 //* ===============================================
-//# incフォルダの読み込み
+//# テーマのメイン設定ファイル（functions.php）
+//* ===============================================
+//
+// 【このファイルの特徴】
+//
+// 1. inc/ フォルダの PHP ファイルを配列でまとめて一括インクルード
+//    - $inc_files 配列にファイル名を追加するだけで自動読み込み
+//    - file_exists() チェックで存在しないファイルはスキップ（エラーなし）
+//
+// 2. 新しい機能を追加したいとき
+//    - inc/ フォルダに新しい .php ファイルを作成
+//    - $inc_files 配列にファイル名を追加（アルファベット順を推奨）
+//
+// 3. ページ固有JSの自動読み込み（ハイブリッド版）
+//    - 全ページで common.js を読み込む
+//    - ページタイプ（スラッグ）に対応した専用JSを自動追加
+//    - 例: contact ページ → js/common.js + js/contact.js
+//
+// 4. 外部ライブラリ（Swiper）の条件読み込み
+//    - トップページ・ブログ一覧ページでのみ Swiper を読み込む
+//    → 不要なページへのスクリプト配信を削減
+//
+// 【注意】このファイルに直接コードを大量に書かず、
+//         機能ごとに inc/ フォルダへ分割することを強く推奨
 
-// 読み込みたいファイル名を配列にまとめる
+
+
+// 読み込みたいファイル名を配列にまとめる（統合済み：23→9ファイル）
 $inc_files = array(
-    'contactform.php',
-    'exclude-aio-migration.php',
-    'fonts.php',
-    'security.php',
-    'page-type.php',
-    'speed.php',
-
+    'admin-tools.php',        // 管理画面ツール + バックアップ除外
+    'ai-search.php',          // AIクローラー制御 + llms.txt
+    'analytics.php',          // GA4/GTM + イベント計測
+    'media.php',              // メディアサイト機能（ブログカード・著者情報・PR表記・人気記事）
+    'performance.php',        // 速度最適化 + Critical CSS + リソースヒント + Web Vitals + Fonts
+    'schema-business.php',    // ビジネス構造化データ（LocalBusiness/JobPosting/Event）
+    'security.php',           // セキュリティ + Cookie同意バナー
+    'seo.php',                // SEO/OGP/JSON-LD + パンくず + FAQ Schema + サイトマップ
+    'helper-frontend.php',    // ページタイプ + ページネーション + CF7 + View Transitions
 );
+
 
 // 配列をループ処理して順番に読み込む
 foreach ($inc_files as $file) {
@@ -23,12 +51,12 @@ foreach ($inc_files as $file) {
 
 //* ===============================================
 //# テーマ設定用関数
-function my_theme_setup()
+function helixia_theme_setup()
 {
     add_theme_support('post-thumbnails'); // アイキャッチ画像を有効化
     add_theme_support('automatic-feed-links'); // 投稿とコメントのRSSフィードのリンクを有効化
     add_theme_support('title-tag'); // タイトルタグ自動生成
-    add_theme_support('custom-logo'); // ★追加：先ほど作った「カスタムロゴの条件分岐」を動かすために必須！
+    add_theme_support('custom-logo'); // カスタムロゴの条件分岐を動かすために必須
     add_theme_support(
         'html5',
         array( //HTML5でマークアップ
@@ -47,19 +75,15 @@ function my_theme_setup()
         'footer-menu' => 'フッターメニュー',
     ));
 }
-add_action('after_setup_theme', 'my_theme_setup');
+add_action('after_setup_theme', 'helixia_theme_setup');
 
 //* ===============================================
 //# CSSとJavaScriptの読み込み（共通JS＋専用JS ハイブリッド版）
 //* ===============================================
-function my_theme_enqueue_assets() {
-    if ( ! is_admin() ) {
-        wp_deregister_script('jquery');
-        wp_enqueue_script('jquery', '//code.jquery.com/jquery-3.6.1.min.js', array(), '3.6.1', true);
-    }
-
+function helixia_enqueue_assets()
+{
     $theme_uri = get_template_directory_uri();
-    
+
     // ページタイプを取得
     $page_type = function_exists('get_data_page_type') ? get_data_page_type() : 'common';
 
@@ -70,17 +94,17 @@ function my_theme_enqueue_assets() {
     );
 
     // もしページタイプが 'common' 以外（home や contact）なら、専用JSも「追加」する
-    if ( $page_type !== 'common' ) {
-        $js_files[ $page_type ] = '/js/' . $page_type . '.js';
+    if ($page_type !== 'common') {
+        $js_files[$page_type] = '/js/' . $page_type . '.js';
     }
 
     // 配列をループしてJSを読み込む
-    foreach ( $js_files as $handle => $path ) {
-        $full_path = get_theme_file_path( $path );
+    foreach ($js_files as $handle => $path) {
+        $full_path = get_theme_file_path($path);
         // ファイルが実際に存在する場合のみ読み込む
-        if ( file_exists( $full_path ) ) {
-            $ver = filemtime( $full_path ); 
-            wp_enqueue_script( $handle . '-js', $theme_uri . $path, array('jquery'), $ver, true );
+        if (file_exists($full_path)) {
+            $ver = filemtime($full_path);
+            wp_enqueue_script($handle . '-js', $theme_uri . $path, array(), $ver, array('in_footer' => true, 'strategy' => 'defer'));
         }
     }
 
@@ -89,47 +113,17 @@ function my_theme_enqueue_assets() {
     $style_css_ver = file_exists($style_css_path) ? filemtime($style_css_path) : '1.0.1';
     wp_enqueue_style('style-css', $theme_uri . '/css/style.css', array(), $style_css_ver, 'all');
 }
-add_action('wp_enqueue_scripts', 'my_theme_enqueue_assets');
+add_action('wp_enqueue_scripts', 'helixia_enqueue_assets');
 
 //* ===============================================
 //# 外部ライブラリの読み込み
 //* ===============================================
-// Swiperの最適化読み込み
-function my_theme_enqueue_library()
+function helixia_enqueue_library()
 {
     // 例：トップページでのみSwiperを読み込む場合
     if (is_front_page() || is_home()) {
-        // CDNからの読み込み（※バージョン情報のクエリを消すため第4引数はnull）
-        wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css', array(), null);
-        wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array(), null, true);
+        wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), null);
+        wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), null, array('in_footer' => true, 'strategy' => 'defer'));
     }
 }
-add_action('wp_enqueue_scripts', 'my_theme_enqueue_library');
-
-//* ===============================================
-//# JavaScriptの読み込み最適化（defer属性の付与・動的対応版）
-//* ===============================================
-function my_theme_add_defer_to_script( $tag, $handle ) {
-    
-    // deferを付与したいスクリプト
-    $defer_scripts = array(
-        'swiper-js',
-        'common-js', // ★ 共通JSは常にdeferを付与
-    );
-
-    // ★ 追加で読み込まれたページ専用のJS（home-js, contact-jsなど）もdeferの対象にする
-    if ( function_exists('get_data_page_type') ) {
-        $page_type = get_data_page_type();
-        if ( $page_type !== 'common' ) {
-            $defer_scripts[] = $page_type . '-js';
-        }
-    }
-
-    // 読み込もうとしているJSが配列の中に含まれていれば defer を付ける
-    if ( in_array( $handle, $defer_scripts, true ) ) {
-        return str_replace( ' src', ' defer src', $tag );
-    }
-
-    return $tag;
-}
-add_filter( 'script_loader_tag', 'my_theme_add_defer_to_script', 10, 2 );
+add_action('wp_enqueue_scripts', 'helixia_enqueue_library');

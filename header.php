@@ -8,6 +8,13 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<?php wp_head(); ?>
+	<script>
+		// 初回訪問時のみ、画面全体をフワッと表示させるためのクラスを付与 (FOUT緩和)
+		if (!sessionStorage.getItem('visited')) {
+			document.documentElement.classList.add('is-first-visit');
+			sessionStorage.setItem('visited', 'true');
+		}
+	</script>
 	</head>
 
 	<body <?php body_class(); ?>>

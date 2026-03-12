@@ -2,20 +2,19 @@
 
 .c-heading {
     //全見出しの共通スタイルだけ登録
-
+    color: var(--text-body);
+    font-weight: var(--bold);
+    line-height: normal;
+    
     &.--h2 {
-        color: var(--text-main);
-        font-size: fluid(24, 40);
-        font-weight: 700;
+        font-size: fluid(28, 36);
         line-height: 1;
-        letter-spacing: em(3.2, 40);
+        letter-spacing: em(3.2, 36);
         text-align: center;
     }
+
     &.--h3 {
-        color: var(--color-base);
-        font-size: fluid(18, 20);
-        font-weight: var(--bold);
-        line-height: normal;
-        letter-spacing: em(1.6, 20);
+        font-size: fluid(16, 24);
+        letter-spacing: em(1.6, 24);
     }
 }

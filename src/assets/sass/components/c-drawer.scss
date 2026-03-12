@@ -2,24 +2,27 @@
 
 .c-drawer {
     position: fixed;
-    top: rem(20);
+    top: 0;
     right: -100%;
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     transition: right 0.3s ease-in-out;
     z-index: 999;
+    //カバー背景
     &:after {
         content: '';
         position: absolute;
-        top: rem(-20);
+        // top: rem(-20);
+        top: 0;
         width: 100vw;
         height: 100vh;
         background: rgba(77, 70, 64, 0.848);
         z-index: -1;
-        @include cq(1280) {
+        @include mq(1280) {
             display: none;
         }
     }
-    @include cq(1280) {
+    @include mq(1280) {
         position: static;
         width: auto;
         height: auto;
@@ -34,37 +37,25 @@
     }
 }
 .c-drawer__wrapper {
-    position: relative;
-    z-index: 999;
-    margin-inline: auto;
-    width: 100%;
-    max-width: rem(500);
-    height: auto;
-    background: var(--color-base);
+    display: flex;
     flex-direction: column;
-    box-shadow: 0px 4px 15px 0px rgba(81, 77, 79, 0.15);
-    @include cq(1280) {
+    position: absolute;
+    place-self: center;
+    inset: 10% 0;
+    margin-inline: auto;
+    max-width: rem(500);
+    width: 100%;
+    height: auto;
+    z-index: 999;
+    @include mq(1280) {
         position: static;
         width: auto;
         height: auto;
         box-shadow: unset;
         flex-direction: row;
-        display: flex;
         width: 100%;
         max-width: none;
         margin-left: auto;
-    }
-    &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: rem(32);
-        right: rem(32);
-        width: rem(29);
-        height: rem(29);
-        @include mq(1280) {
-            display: none;
-        }
     }
 }
 .c-drawer__inner {
@@ -97,10 +88,9 @@
     align-items: center;
     width: rem(52);
     height: rem(52.5);
-    background-color: var(--color-base);
     transition: background-color 0.3s;
     z-index: 10000;
-    @include cq(1280) {
+    @include mq(1280) {
         display: none;
     }
     &.is-open {
@@ -121,7 +111,7 @@
     display: block;
     width: rem(22);
     height: rem(3);
-    background-color: brown;
+    background-color: var(--bg-accent);
     transition: background-color 0.3s;
     &:nth-child(2) {
         margin: rem(5) 0;

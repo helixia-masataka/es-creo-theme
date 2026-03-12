@@ -7,7 +7,7 @@ get_header();
 
 <section class="p-static">
 	<div class="l-container">
-		<div class="l-container-large">
+		<div class="l-container-l">
 			<div class="p-static__inner">
 				<h1>お問い合わせいただき<br>ありがとうございます!</h1>
 				<p>この度は当ホームページをご覧いただき、またお問い合わせいただき誠にありがとうございます。</p>

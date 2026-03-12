@@ -5,13 +5,13 @@
 .l-container {
     @include content-width;
 }
-.l-container-large {
+.l-container-l {
     @include content-width-large;
 }
-.l-container-medium {
+.l-container-m{
     @include content-width-medium;
 }
-.l-container-small {
+.l-container-s {
     @include content-width-small;
 }
 .l-container-cq{

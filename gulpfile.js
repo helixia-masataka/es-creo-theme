@@ -99,6 +99,28 @@ function compileSass() {
         });
 }
 
+// Critical CSSコンパイル（インライン用のためSource Mapsなし）
+function compileCritical() {
+    return gulp.src(path.join(baseDir, 'critical.scss'))
+        .pipe(plumber({ errorHandler }))
+        .pipe(sass())
+        .pipe(postcss([
+            autoprefixer(),
+            cssSorter(),
+            mergeRules(),
+            cssnano({
+                preset: [
+                    'default',
+                    { discardZero: false },
+                ],
+            }),
+        ]))
+        .pipe(gulp.dest("./css/"))
+        .on('end', () => {
+            console.log('✅ Critical CSS Compiled!');
+        });
+}
+
 // JS圧縮
 function formatJS() {
     return gulp.src("./src/assets/js/**/*.js")
@@ -139,7 +161,7 @@ function updatePhp() {
 
 // 監視タスク
 function watchFiles() {
-    watch([baseDir + "**/*.scss", "!" + baseDir + "**/index.scss"], gulp.series(generateIndexScss, compileSass));
+    watch([baseDir + "**/*.scss", "!" + baseDir + "**/index.scss"], gulp.series(generateIndexScss, gulp.parallel(compileSass, compileCritical)));
     watch("./src/assets/js/**/*.js", gulp.series(formatJS));
     watch("./src/assets/img/**/*", gulp.series(copyImage));
     
@@ -158,6 +180,7 @@ function browserInit(done) {
 
 export const generateIndexScssTask = generateIndexScss;
 export const compileSassTask = compileSass;
+export const compileCriticalTask = compileCritical;
 export const watchTask = watchFiles;
 export const browserInitTask = browserInit;
 export const formatJSTask = formatJS;
@@ -165,4 +188,4 @@ export const updatePhpTask = updatePhp;
 
 // コマンド登録
 export const dev = gulp.parallel(browserInit, watchFiles);
-export const build = gulp.parallel(formatJS, compileSass, copyImage, updatePhp);
+export const build = gulp.parallel(formatJS, compileSass, compileCritical, copyImage, updatePhp);

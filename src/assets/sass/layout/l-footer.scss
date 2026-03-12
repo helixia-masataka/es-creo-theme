@@ -19,6 +19,8 @@
     gap: rem(24);
     text-align: center;
     flex-wrap: wrap;
+    display: flex;
+    justify-self: center;
 }
 
 .l-footer__list {
@@ -39,42 +41,15 @@
 }
 
 .l-footer__wrap {
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: rem(20);
     padding-bottom: rem(6);
-    flex-direction: row;
-    max-width: rem(400);
-}
-
-.l-footer__company {
-    color: var(--text-main);
-    font-size: rem(20);
-    font-weight: 500;
-    letter-spacing: em(1.6, 20);
-    line-height: normal;
-    &:hover {
-        opacity: 0.6;
-    }
-}
-.l-footer__company span {
-    display: block;
-    font-size: rem(13);
-    letter-spacing: em(1.04, 13);
-    line-height: normal;
-}
-.l-footer__social {
-    gap: rem(12);
-    flex-direction: row;
-    a {
-        &:hover {
-            opacity: 0.6;
-        }
-    }
 }
 
 .l-footer__access {
-    margin-top: rem(16);
+    margin-top: rem(32);
     gap: rem(12);
     @include mq('lg') {
         flex-direction: column;
@@ -96,15 +71,14 @@ dd {
         word-break: normal;
     }
 }
-.l-footer__access .flex {
-    gap: rem(34);
-    flex-direction: row;
-    @include mq('lg') {
-        // flex-direction: column;
-    }
-}
+
 
 .l-footer__bottom {
     text-align: center;
-    margin-top: fluid(50.38, 66);
+    margin-top: rem(32);
+}
+
+.l-footer__copyright{
+    display: block;
+    margin-top: rem(16);
 }

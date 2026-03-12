@@ -1,6 +1,7 @@
-@use 'functions' as *;
+@use "functions" as *;
+
 :root {
-    /* =========================================
+  /* =========================================
       ①カラーパレット(グローバルカラーの登録)
         デザインで使用する色をここで定義します。
         ただし、使用頻度が極端に少ない(1~2箇所だけなど)場合は、都度直接指定します。
@@ -8,55 +9,125 @@
         ・テーマカラー：主にデザインを構成する色を定義します。
         ・ベースカラー：主に無彩色(白・黒・グレー)を定義します。
     ========================================= */
-    // テーマカラー
-    --global-green: #0c6768;
-    --global-green-deep: #084c4d;
-    --global-brown: #690e0d;
+  // テーマカラー（メインカラー群）
+  --global-main-darkest: #053334;
+  --global-main-dark: #084c4d;
+  --global-main: #0c6768;
+  --global-main-light: #2d8889;
+  --global-main-lighter: #5da9a9;
 
-    // ベースカラー
-    --global-white: #ffffff;
-    --global-black: #222222;
-    --global-gray: #f1efec;
+  // アクセントカラー
+  --global-accent: #690e0d;
+  --global-danger: #E63946;
 
-    /* =========================================
+  // ベースカラー（背景・無彩色）
+  --global-white: #ffffff;
+  --global-bg-light: #f8f7f5;
+  --global-bg-gray: #f1efec;
+  --global-bg-darker: #e4e2e0;
+
+  // テキストカラー
+  --global-text-main: #222222;
+  --global-text-sub: #505050;
+
+  /* =========================================
        ②デザイン構成色
        ・どこで使用するかを「役割」で定義して、①の変数を割り当てます。
        ・HTML/CSS側では、原則として下記の変数を使用します。
     ========================================= */
-    // デザインにおける役割の定義
-    --color-primary: var(--global-green); // メインカラー
-    --color-secondary: var(--global-green-deep); // サブカラー
-    --color-accent: var(--global-brown); // アクセントカラー
+  // デザインにおける役割の定義
+  --color-primary: var(--global-main);
+  --color-secondary: var(--global-main-dark);
+  --color-accent: var(--global-accent);
 
-    // 背景色
-    --bg-body: var(--global-white); // ページ全体の背景
-    --bg-surface: var(--global-gray); // カードやセクションの背景
+  // 背景色
+  --bg-body: var(--global-bg-light);
+  --bg-cta: var(--global-main);
+  --bg-surface: var(--global-white); // 白背景（カードやAboutUS等）
+  --bg-section: var(--global-bg-gray); // グレーセクション背景
+  --bg-accent: var(--global-accent); // CTAなどのアクセント背景
+  --bg-danger: var(--global-danger); // CTAなどのアクセント背景
 
-    // 文字色
-    --text-body: var(--global-black); // 基本の文字色
-    --text-sub: var(--global-gray); // 薄い文字色
-    --text-link: var(--global-brown); // リンク色（primaryを使うことも多い）
+  // 文字色
+  --text-body: var(--global-text-main); // #222222
+  --text-sub: var(--global-text-sub); // #505050
+  --text-link: var(--global-main); // リンクや見出し等
+  --text-cta: var(--global-white); // リンクや見出し等
 
-    /* =========================================
+  /* =========================================
        ③ タイポグラフィ・レイアウト（その他）
     ========================================= */
-    // font-family
-    --font-jp: 'Noto Sans JP', sans-serif;
-    --font-en: 'Poppins', sans-serif;
+  // font-family
+  --font-jp: "Noto Sans JP", sans-serif;
+  --font-en: "Poppins", sans-serif;
 
-    // font-weight
-    --medium: 500;
-    --bold: 700;
+  // font-weight
+  --medium: 500;
+  --bold: 700;
 
-    //共通コンテナ(インナー)
-    --container: calc(var(--limit-bp) + (var(--container-side) * 2));
-    --container-side: #{fluid(18px, 40px)};
-    --container-l: #{fluid(339px, 1100px)};
-    --container-m: #{fluid(295px, 960px)};
-    --limit-bp: #{$limit-bp};
-    --min-bp: #{$default-min-bp};
-    --max-bp: #{$default-max-bp};
+  //共通コンテナ(インナー)
+  --container: calc(var(--limit-bp) + (var(--container-side) * 2));
+  --container-side: #{fluid(18px, 40px)};
+  --container-l: #{rem(1200)};
+  --container-m: #{rem(800)};
+  --limit-bp: #{$limit-bp};
+  --min-bp: #{$default-min-bp};
+  --max-bp: #{$default-max-bp};
 
-    //ヘッダー高さ
-    --header-height: 90;
+  //ヘッダー高さ
+  --header-height: 90;
+
+  // グラデーション（MV用）
+  --bg-grad-mv: linear-gradient(
+    180deg,
+    rgba(5, 51, 52, 0.6) 0%,
+    rgba(12, 103, 104, 0.3) 100%
+  );
+
+  // ボーダーカラー
+  --color-base: var(--global-white);
+  --border-light: var(--global-bg-darker);
+}
+
+/* =========================================
+   ④ ダークモード
+   OS設定に連動して自動切り替え。
+   ②デザイン構成色だけを上書きするため、
+   HTML/Sassの変更は一切不要。
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    // ダークモード用グローバルカラー
+    --global-dark-bg: #1a1a2e;
+    --global-dark-surface: #252540;
+    --global-dark-section: #2a2a45;
+    --global-dark-border: #3a3a55;
+    --global-dark-text: #e8e8ec;
+    --global-dark-text-sub: #a0a0b0;
+
+    // ②デザイン構成色の上書き
+    --color-primary: var(--global-main-light);
+    --color-secondary: var(--global-main-lighter);
+
+    // 背景色
+    --bg-body: var(--global-dark-bg);
+    --bg-cta: var(--global-main-dark);
+    --bg-surface: var(--global-dark-surface);
+    --bg-section: var(--global-dark-section);
+
+    // 文字色
+    --text-body: var(--global-dark-text);
+    --text-sub: var(--global-dark-text-sub);
+    --text-link: var(--global-main-light);
+    --text-cta: var(--global-white);
+
+    // その他
+    --color-base: var(--global-dark-surface);
+    --border-light: var(--global-dark-border);
+    --bg-grad-mv: linear-gradient(
+      180deg,
+      rgba(26, 26, 46, 0.7) 0%,
+      rgba(37, 37, 64, 0.4) 100%
+    );
+  }
 }

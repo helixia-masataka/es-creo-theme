@@ -24,9 +24,11 @@
 .font-bold {
     font-weight: var(--font-bold);
 }
+
 .color-primary {
     color: var(--color-primary);
 }
+
 .color-secondary {
     background: var(--color-secondary);
 }
@@ -58,6 +60,20 @@
 //* ===============================================
 //# アニメーション
 //=============================================== *//
+
+/* 初回訪問時のフェードインアニメーション */
+html.is-first-visit body {
+    animation: fadeInOnFirstVisit 0.8s ease-out forwards;
+}
+
+@keyframes fadeInOnFirstVisit {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /* スクロールすると下からふわっと */
 .inview {

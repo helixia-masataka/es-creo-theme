@@ -22,8 +22,10 @@ import watch from 'gulp-watch';
 import gulpIf from 'gulp-if';
 import sourcemaps from 'gulp-sourcemaps';
 
-// 【設定】ローカルWordPressのURLをここに設定する
-const projectUrl = "http://helixia-wp-theme.local/";
+// 【設定】ローカルWordPressのURLを自動取得（Local Sitesフォルダ名から推測）
+const siteNameMatch = process.cwd().match(/Local Sites[\\/]([^\\/]+)/);
+const siteName = siteNameMatch ? siteNameMatch[1] : "localhost";
+const projectUrl = `http://${siteName}.local/`; 
 
 const sass = gulpSass(dartSass);
 const browserSyncInstance = browserSync.create();

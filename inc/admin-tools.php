@@ -438,11 +438,10 @@ add_filter(
     function ($exclude_filters) use ($_theme_name) {
         $new_exclusions = array(
             "{$_theme_name}/node_modules",
-            "{$_theme_name}/src/js",
-            "{$_theme_name}/src/img",
+            "{$_theme_name}/src",
             "{$_theme_name}/package-lock.json",
             "{$_theme_name}/package.json",
-            "{$_theme_name}/Read-first.md"
+            "{$_theme_name}/README.md"
         );
         return array_merge($exclude_filters, $new_exclusions);
     }

@@ -144,6 +144,33 @@ add_action('init', 'helixia_remove_extra_bloat');
  */
 function helixia_inline_critical_css()
 {
+    // 定数による切り替え判定
+    $is_enabled = HELIXIA_CRITICAL_CSS;
+
+    // 定数が null の場合は環境を見て自動判定 (デバッグモードなら OFF)
+    if (null === $is_enabled) {
+        $env_type = function_exists('wp_get_environment_type') ? wp_get_environment_type() : 'production';
+
+        // ホスト名から開発環境か判定 (.local や localhost)
+        $is_dev_host = isset($_SERVER['HTTP_HOST']) && (
+            strpos($_SERVER['HTTP_HOST'], 'localhost') !== false ||
+            strpos($_SERVER['HTTP_HOST'], '.local') !== false ||
+            strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false ||
+            strpos($_SERVER['HTTP_HOST'], '0.0.0.0') !== false
+        );
+
+        // 本番環境、かつデバッグモードが OFF、かつローカルホストでない場合のみ ON
+        $is_enabled = ($env_type === 'production') && (!defined('WP_DEBUG') || !WP_DEBUG) && !$is_dev_host;
+    }
+
+    // デバッグ用のヒントを出力 (検証ツール > ページソース で確認可能)
+    $debug_info = "Env:" . (function_exists('wp_get_environment_type') ? wp_get_environment_type() : 'N/A') . " / Debug:" . (defined('WP_DEBUG') && WP_DEBUG ? 'ON' : 'OFF') . " / Host:" . ($_SERVER['HTTP_HOST'] ?? 'Unknown');
+    echo "<!-- Critical CSS: " . ($is_enabled ? "ON" : "OFF") . " (" . $debug_info . ") -->\n";
+
+    if (!$is_enabled) {
+        return;
+    }
+
     $critical_path = get_theme_file_path('/css/critical.css');
 
     // ファイルが存在しない場合は何もしない（グレースフル）

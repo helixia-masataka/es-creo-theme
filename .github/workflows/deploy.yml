@@ -1,4 +1,4 @@
-name: Deploy Theme to Test Server
+name: Deploy Theme to es-creo.com
 
 on:
   push:

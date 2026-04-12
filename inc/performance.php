@@ -7,9 +7,9 @@
 // PageSpeed Insightsでの高スコア獲得やCore Web Vitals対策を目指した表示速度改善機能をまとめています。
 //
 // 1. メインビジュアル Preload / 画像最適化 / 不要機能削除（旧 speed.php）
-//    - LCP改善のためにMVP画像をPreloadし、未使用のWordPressコア機能（emoji等）を無効化。
+//    - LCP改善のためにMVP画像をPreloadし､未使用のWordPressコア機能（emoji等）を無効化。
 // 2. Critical CSS インライン出力（旧 critical-css.php）
-//    - レンダリングブロックを防ぐため、クリティカルCSSをhead内に展開。
+//    - レンダリングブロックを防ぐため､クリティカルCSSをhead内に展開。
 // 3. リソースヒント dns-prefetch / preconnect / prefetch（旧 resource-hints.php）
 //    - 外部ドメイン（Google Fonts等）への事前接続を行いロード時間を短縮。
 // 4. Web Vitals 計測 LCP / CLS / INP（旧 web-vitals.php）
@@ -136,10 +136,10 @@ add_action('init', 'helixia_remove_extra_bloat');
 //* ===============================================
 
 /**
- * css/critical.css をファイルから読み込み、<style> タグとして
+ * css/critical.css をファイルから読み込み､<style> タグとして
  * <head> 内にインライン出力する。
  *
- * ※ フルCSS（style.css）は同期読み込みのまま維持するため、
+ * ※ フルCSS（style.css）は同期読み込みのまま維持するため､
  *   FOUCは発生しない。Critical CSSが先にあることでFCPが改善される。
  */
 function helixia_inline_critical_css()
@@ -159,7 +159,7 @@ function helixia_inline_critical_css()
             strpos($_SERVER['HTTP_HOST'], '0.0.0.0') !== false
         );
 
-        // 本番環境、かつデバッグモードが OFF、かつローカルホストでない場合のみ ON
+        // 本番環境､かつデバッグモードが OFF､かつローカルホストでない場合のみ ON
         $is_enabled = ($env_type === 'production') && (!defined('WP_DEBUG') || !WP_DEBUG) && !$is_dev_host;
     }
 
@@ -364,10 +364,11 @@ function helixia_optimized_google_fonts()
     // 2. 読み込みたいフォントを配列で登録
     $fonts = array(
         'Noto+Sans+JP:wght@100..900', // Font A
-        'Josefin+Sans:wght@400',      // Font B
+        'Ysabeau+SC:wght@1..1000',      // Font B
+        'Sacramento',      // Font B
     );
 
-    // 3. フォント配列を「&family=」で合体させて、1つのURLを生成
+    // 3. フォント配列を「&family=」で合体させて､1つのURLを生成
     $base_url = 'https://fonts.googleapis.com/css2?family=';
     $joined_fonts = implode('&family=', $fonts);
     $font_url = $base_url . $joined_fonts . '&display=swap';

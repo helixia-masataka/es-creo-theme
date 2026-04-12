@@ -1,58 +1,58 @@
-@use"../settings/" as * ;
+@use "../settings/" as *;
 /* パンくずリストのスタイル */
 .c-breadcrumb {
-    margin: rem(10) 0 rem(20);
-    font-size: rem(12);
-    color: var(--text-body);
+  margin: rem(10) 0 rem(20);
+  font-size: rem(12);
+  color: var(--text-main);
 }
 
 .c-breadcrumb ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .c-breadcrumb li {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* 区切り文字（ > ）を追加 */
 .c-breadcrumb li:not(:last-child)::after {
-    content: ">";
-    margin: 0 rem(8);
-    color: var(--text-body);
-    font-weight: normal;
+  content: ">";
+  margin: 0 rem(8);
+  color: var(--text-main);
+  font-weight: normal;
 }
 
 .c-breadcrumb a {
-    text-decoration: none;
-     color: var(--text-link);
-    transition: color 0.3s;
+  text-decoration: none;
+  color: var(--text-link);
+  transition: color 0.3s;
 }
 
 .c-breadcrumb a:hover {
-    color: var(--color-secondary); /* ホバー時の色 */
-    text-decoration: underline;
+  color: var(--color-secondary); /* ホバー時の色 */
+  text-decoration: underline;
 }
 
 /* 現在のページ（最後の項目） */
 .c-breadcrumb li:last-child {
-    font-weight: bold;
-    color: var(--text-body);
-    max-width: rem(200); /* 必要に応じて調整 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-weight: bold;
+  color: var(--text-main);
+  max-width: rem(200); /* 必要に応じて調整 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @include mq(600) {
-    .c-breadcrumb {
-        font-size: rem(13);
-    }
-    .c-breadcrumb li:last-child {
-        max-width: rem(150); /* スマホではタイトル表示幅を狭める */
-    }
+  .c-breadcrumb {
+    font-size: rem(13);
+  }
+  .c-breadcrumb li:last-child {
+    max-width: rem(150); /* スマホではタイトル表示幅を狭める */
+  }
 }

@@ -1,20 +1,21 @@
-@use '../settings/' as *;
+@use "../settings/" as *;
 
 .c-heading {
-    //全見出しの共通スタイルだけ登録
-    color: var(--text-body);
-    font-weight: var(--bold);
-    line-height: normal;
-    
-    &.--h2 {
-        font-size: fluid(28, 36);
-        line-height: 1;
-        letter-spacing: em(3.2, 36);
-        text-align: center;
-    }
+  //全見出しの共通スタイルだけ登録
+  color: var(--text-main);
+  font-weight: var(--regular);
+  font-family: var(--font-en);
+  text-transform: uppercase;
 
-    &.--h3 {
-        font-size: fluid(16, 24);
-        letter-spacing: em(1.6, 24);
-    }
+  &.--h2 {
+    font-size: fluid(64, 100);
+    line-height: 1;
+    padding-bottom: rem(29);
+    margin-bottom: rem(10);
+  }
+
+  &.--h3 {
+    font-size: fluid(16, 24);
+    letter-spacing: em(1.6, 24);
+  }
 }

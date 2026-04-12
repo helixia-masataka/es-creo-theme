@@ -23,77 +23,77 @@
 //# 1. 目次（Table of Contents）の自動生成
 //* ===============================================
 
-function helixia_auto_toc($content)
-{
-    // 個別ページ（投稿・固定ページ）以外では処理しない
-    if (!is_singular()) {
-        return $content;
-    }
+// function helixia_auto_toc($content)
+// {
+//     // 個別ページ（投稿・固定ページ）以外では処理しない
+//     if (!is_singular()) {
+//         return $content;
+//     }
 
-    // h2, h3 を正規表現で検出
-    $pattern = '/<(h[23])(.*?)>(.*?)<\/\1>/i';
-    preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
+//     // h2, h3 を正規表現で検出
+//     $pattern = '/<(h[23])(.*?)>(.*?)<\/\1>/i';
+//     preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
 
-    // 見出しが2つ未満なら目次を生成しない
-    if (count($matches) < 2) {
-        return $content;
-    }
+//     // 見出しが2つ未満なら目次を生成しない
+//     if (count($matches) < 2) {
+//         return $content;
+//     }
 
-    // 目次HTML生成
-    $toc = '<nav class="c-toc" aria-label="目次">';
-    $toc .= '<details class="c-toc__details" open>';
-    $toc .= '<summary class="c-toc__title">目次</summary>';
-    $toc .= '<ol class="c-toc__list">';
+//     // 目次HTML生成
+//     $toc = '<nav class="c-toc" aria-label="目次">';
+//     $toc .= '<details class="c-toc__details" open>';
+//     $toc .= '<summary class="c-toc__title">目次</summary>';
+//     $toc .= '<ol class="c-toc__list">';
 
-    $counter = 0;
-    $in_sub_list = false;
+//     $counter = 0;
+//     $in_sub_list = false;
 
-    foreach ($matches as $match) {
-        $tag = strtolower($match[1]); // h2 or h3
-        $heading_text = wp_strip_all_tags($match[3]);
-        $anchor_id = 'toc-' . $counter;
-        $counter++;
+//     foreach ($matches as $match) {
+//         $tag = strtolower($match[1]); // h2 or h3
+//         $heading_text = wp_strip_all_tags($match[3]);
+//         $anchor_id = 'toc-' . $counter;
+//         $counter++;
 
-        // h2：通常のリスト項目
-        if ($tag === 'h2') {
-            if ($in_sub_list) {
-                $toc .= '</ol></li>';
-                $in_sub_list = false;
-            }
-            $toc .= '<li class="c-toc__item"><a href="#' . esc_attr($anchor_id) . '">' . esc_html($heading_text) . '</a>';
-        }
+//         // h2：通常のリスト項目
+//         if ($tag === 'h2') {
+//             if ($in_sub_list) {
+//                 $toc .= '</ol></li>';
+//                 $in_sub_list = false;
+//             }
+//             $toc .= '<li class="c-toc__item"><a href="#' . esc_attr($anchor_id) . '">' . esc_html($heading_text) . '</a>';
+//         }
 
-        // h3：サブリスト
-        if ($tag === 'h3') {
-            if (!$in_sub_list) {
-                $toc .= '<ol class="c-toc__sublist">';
-                $in_sub_list = true;
-            }
-            $toc .= '<li class="c-toc__subitem"><a href="#' . esc_attr($anchor_id) . '">' . esc_html($heading_text) . '</a></li>';
-        }
+//         // h3：サブリスト
+//         if ($tag === 'h3') {
+//             if (!$in_sub_list) {
+//                 $toc .= '<ol class="c-toc__sublist">';
+//                 $in_sub_list = true;
+//             }
+//             $toc .= '<li class="c-toc__subitem"><a href="#' . esc_attr($anchor_id) . '">' . esc_html($heading_text) . '</a></li>';
+//         }
 
-        // 本文内の見出しに id を付与
-        $new_heading = '<' . $match[1] . $match[2] . ' id="' . esc_attr($anchor_id) . '">' . $match[3] . '</' . $match[1] . '>';
-        $content = str_replace($match[0], $new_heading, $content);
-    }
+//         // 本文内の見出しに id を付与
+//         $new_heading = '<' . $match[1] . $match[2] . ' id="' . esc_attr($anchor_id) . '">' . $match[3] . '</' . $match[1] . '>';
+//         $content = str_replace($match[0], $new_heading, $content);
+//     }
 
-    if ($in_sub_list) {
-        $toc .= '</ol></li>';
-    }
+//     if ($in_sub_list) {
+//         $toc .= '</ol></li>';
+//     }
 
-    $toc .= '</ol></details></nav>';
+//     $toc .= '</ol></details></nav>';
 
-    // 目次を最初の <h2> の前に挿入
-    $first_h2_pos = strpos($content, '<h2');
-    if ($first_h2_pos !== false) {
-        $content = substr_replace($content, $toc, $first_h2_pos, 0);
-    } else {
-        $content = $toc . $content;
-    }
+//     // 目次を最初の <h2> の前に挿入
+//     $first_h2_pos = strpos($content, '<h2');
+//     if ($first_h2_pos !== false) {
+//         $content = substr_replace($content, $toc, $first_h2_pos, 0);
+//     } else {
+//         $content = $toc . $content;
+//     }
 
-    return $content;
-}
-add_filter('the_content', 'helixia_auto_toc', 12);
+//     return $content;
+// }
+// add_filter('the_content', 'helixia_auto_toc', 12);
 
 
 //* ===============================================
@@ -114,7 +114,7 @@ function helixia_reading_time($post_id = null)
     $content = wp_strip_all_tags($content);
     $char_count = mb_strlen($content, 'UTF-8');
 
-    // 日本語は400文字/分、最低1分
+    // 日本語は400文字/分､最低1分
     $minutes = max(1, ceil($char_count / 400));
 
     return '<span class="c-reading-time">📖 この記事は約' . esc_html($minutes) . '分で読めます</span>';
@@ -182,12 +182,12 @@ function helixia_related_posts($max_posts = 4)
     if (!empty($categories)) {
         $cat_ids = wp_list_pluck($categories, 'term_id');
         $cat_posts = get_posts(array(
-            'category__in'   => $cat_ids,
-            'post__not_in'   => array($current_id),
+            'category__in' => $cat_ids,
+            'post__not_in' => array($current_id),
             'posts_per_page' => $max_posts,
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-            'fields'         => 'ids',
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'fields' => 'ids',
         ));
         $related_ids = array_merge($related_ids, $cat_posts);
     }
@@ -198,12 +198,12 @@ function helixia_related_posts($max_posts = 4)
         if (!empty($tags)) {
             $tag_ids = wp_list_pluck($tags, 'term_id');
             $tag_posts = get_posts(array(
-                'tag__in'        => $tag_ids,
-                'post__not_in'   => array_merge(array($current_id), $related_ids),
+                'tag__in' => $tag_ids,
+                'post__not_in' => array_merge(array($current_id), $related_ids),
                 'posts_per_page' => $max_posts - count($related_ids),
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-                'fields'         => 'ids',
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'fields' => 'ids',
             ));
             $related_ids = array_merge($related_ids, $tag_posts);
         }
@@ -264,27 +264,27 @@ function helixia_sns_share_buttons()
 
     $buttons = array(
         array(
-            'name'  => 'X',
+            'name' => 'X',
             'class' => '--x',
-            'url'   => 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $title,
+            'url' => 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $title,
             'label' => 'Xでシェア',
         ),
         array(
-            'name'  => 'Facebook',
+            'name' => 'Facebook',
             'class' => '--facebook',
-            'url'   => 'https://www.facebook.com/sharer/sharer.php?u=' . $url,
+            'url' => 'https://www.facebook.com/sharer/sharer.php?u=' . $url,
             'label' => 'Facebookでシェア',
         ),
         array(
-            'name'  => 'LINE',
+            'name' => 'LINE',
             'class' => '--line',
-            'url'   => 'https://social-plugins.line.me/lineit/share?url=' . $url,
+            'url' => 'https://social-plugins.line.me/lineit/share?url=' . $url,
             'label' => 'LINEで送る',
         ),
         array(
-            'name'  => 'はてブ',
+            'name' => 'はてブ',
             'class' => '--hatena',
-            'url'   => 'https://b.hatena.ne.jp/entry/' . rawurlencode(get_permalink()),
+            'url' => 'https://b.hatena.ne.jp/entry/' . rawurlencode(get_permalink()),
             'label' => 'はてなブックマークに追加',
         ),
     );
@@ -323,7 +323,7 @@ function helixia_external_links($content)
             $full_tag = $matches[0];
             $href = $matches[2];
 
-            // 自サイトのURLやアンカーリンク、tel:、mailto: はスキップ
+            // 自サイトのURLやアンカーリンク､tel:､mailto: はスキップ
             if (
                 strpos($href, $site_url) === 0 ||
                 strpos($href, '#') === 0 ||
@@ -340,7 +340,7 @@ function helixia_external_links($content)
                 $full_tag = str_replace('<a ', '<a target="_blank" ', $full_tag);
             }
 
-            // すでに rel が指定されていれば noopener を追加、なければ新規追加
+            // すでに rel が指定されていれば noopener を追加､なければ新規追加
             if (strpos($full_tag, 'rel=') !== false) {
                 // noopener が未指定なら追加
                 if (strpos($full_tag, 'noopener') === false) {
@@ -379,7 +379,7 @@ function helixia_excerpt_more($more)
 add_filter('excerpt_more', 'helixia_excerpt_more');
 
 /**
- * 手動抜粋がない場合、本文の最初の段落から自動生成
+ * 手動抜粋がない場合､本文の最初の段落から自動生成
  * HTMLタグを除去して120文字に切り詰める
  */
 function helixia_smart_excerpt($excerpt)
@@ -450,7 +450,7 @@ function helixia_post_dates($post_id = null)
 //* ===============================================
 
 /**
- * the_content フィルターで「行に URL だけが書かれている」パターンを検出し、
+ * the_content フィルターで「行に URL だけが書かれている」パターンを検出し､
  * カード型UIに自動変換する。OGP情報を取得して表示。
  *
  * 対象: 投稿本文内の独立した行にある URL（<p>https://...</p> パターン）
@@ -515,7 +515,7 @@ function helixia_blogcard($content)
             $thumb = '';
 
             $response = wp_remote_get($url, array(
-                'timeout'   => 5,
+                'timeout' => 5,
                 'sslverify' => false,
                 'user-agent' => 'Mozilla/5.0 (compatible; WordPressBlogCard)',
             ));
@@ -541,9 +541,9 @@ function helixia_blogcard($content)
 
             // 24時間キャッシュ
             set_transient($cache_key, array(
-                'title'   => $title,
+                'title' => $title,
                 'excerpt' => $excerpt,
-                'thumb'   => $thumb,
+                'thumb' => $thumb,
             ), DAY_IN_SECONDS);
         }
 
@@ -662,10 +662,12 @@ add_filter('the_content', 'helixia_pr_content_filter', 1);
 function helixia_pr_label()
 {
     global $post;
-    if (!$post) return;
+    if (!$post)
+        return;
 
     $is_pr = get_post_meta($post->ID, 'is_pr', true);
-    if (!$is_pr) return;
+    if (!$is_pr)
+        return;
 
     echo '<div class="c-pr-label" aria-label="PR表記">';
     echo '<span class="c-pr-label__badge">PR</span>';
@@ -719,41 +721,42 @@ add_action('wp_head', 'helixia_track_post_views');
 function helixia_popular_posts($max_posts = 5)
 {
     $args = array(
-        'post_type'      => 'post',
+        'post_type' => 'post',
         'posts_per_page' => $max_posts,
-        'meta_key'       => 'helixia_post_views_count',
-        'orderby'        => 'meta_value_num',
-        'order'          => 'DESC',
+        'meta_key' => 'helixia_post_views_count',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC',
     );
 
     $popular_posts = new WP_Query($args);
 
-    if ($popular_posts->have_posts()) :
+    if ($popular_posts->have_posts()):
         echo '<section class="c-popular-posts">';
         echo '<h2 class="c-popular-posts__title">人気記事ランキング</h2>';
         echo '<ul class="c-popular-posts__list">';
 
         $rank = 1;
-        while ($popular_posts->have_posts()) : $popular_posts->the_post();
+        while ($popular_posts->have_posts()):
+            $popular_posts->the_post();
             $thumb = has_post_thumbnail()
                 ? get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'c-popular-posts__img', 'loading' => 'lazy'))
                 : '';
-            
+
             echo '<li class="c-popular-posts__item">';
             echo '<a href="' . esc_url(get_permalink()) . '" class="c-popular-posts__link">';
-            
+
             if ($thumb) {
                 echo '<figure class="c-popular-posts__thumb">';
                 echo $thumb;
                 echo '<span class="c-popular-posts__rank --rank-' . $rank . '">' . $rank . '</span>';
                 echo '</figure>';
             }
-            
+
             echo '<div class="c-popular-posts__body">';
             echo '<span class="c-popular-posts__name">' . esc_html(get_the_title()) . '</span>';
-            echo '<span class="c-popular-posts__meta">' . esc_html(number_format((int)get_post_meta(get_the_ID(), 'helixia_post_views_count', true))) . ' views</span>';
+            echo '<span class="c-popular-posts__meta">' . esc_html(number_format((int) get_post_meta(get_the_ID(), 'helixia_post_views_count', true))) . ' views</span>';
             echo '</div></a></li>';
-            
+
             $rank++;
         endwhile;
 

@@ -22,7 +22,7 @@
 //    - トップページ・ブログ一覧ページでのみ Swiper を読み込む
 //    → 不要なページへのスクリプト配信を削減
 //
-// 【注意】このファイルに直接コードを大量に書かず、
+// 【注意】このファイルに直接コードを大量に書かず､
 //         機能ごとに inc/ フォルダへ分割することを強く推奨
 
 /**
@@ -44,6 +44,9 @@ $inc_files = array(
     'security.php',           // セキュリティ + Cookie同意バナー
     'seo.php',                // SEO/OGP/JSON-LD + パンくず + FAQ Schema + サイトマップ
     'helper-frontend.php',    // ページタイプ + ページネーション + CF7 + View Transitions
+    'custom-fields-works.php', // 実績詳細用カスタムフィールド
+    'custom-fields-about.php', // プロフィール用カスタムフィールド
+    'ajax-works.php',         // 実績一覧Ajaxフィルタリング
 );
 
 
@@ -99,9 +102,11 @@ function helixia_enqueue_assets()
         'common' => '/js/common.js',
     );
 
-    // もしページタイプが 'common' 以外（home や contact）なら、専用JSも「追加」する
+    // もしページタイプが 'common' 以外（home や contact）なら､専用JSも「追加」する
     if ($page_type !== 'common') {
         $js_files[$page_type] = '/js/' . $page_type . '.js';
+    } elseif (is_page_template('page-about.php')) {
+        $js_files['about'] = '/js/about.js';
     }
 
     // 配列をループしてJSを読み込む
@@ -110,7 +115,22 @@ function helixia_enqueue_assets()
         // ファイルが実際に存在する場合のみ読み込む
         if (file_exists($full_path)) {
             $ver = filemtime($full_path);
-            wp_enqueue_script($handle . '-js', $theme_uri . $path, array(), $ver, array('in_footer' => true, 'strategy' => 'defer'));
+            $deps = array();
+
+            // about.js の場合は Swiper に依存させる
+            if ($handle === 'about') {
+                $deps[] = 'swiper-js';
+            }
+
+            wp_enqueue_script($handle . '-js', $theme_uri . $path, $deps, $ver, array('in_footer' => true, 'strategy' => 'defer'));
+
+            // Ajax用のデータをホーム画面のJSに渡す
+            if ($handle === 'home') {
+                wp_localize_script('home-js', 'helixia_ajax', array(
+                    'url' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce('helixia_ajax_nonce'),
+                ));
+            }
         }
     }
 
@@ -126,8 +146,8 @@ add_action('wp_enqueue_scripts', 'helixia_enqueue_assets');
 //* ===============================================
 function helixia_enqueue_library()
 {
-    // 例：トップページでのみSwiperを読み込む場合
-    if (is_front_page() || is_home()) {
+    // 例：トップページ､またはアバウトページでのみSwiperを読み込む場合
+    if (is_front_page() || is_home() || is_page('about') || is_page_template('page-about.php')) {
         wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), null);
         wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), null, array('in_footer' => true, 'strategy' => 'defer'));
     }

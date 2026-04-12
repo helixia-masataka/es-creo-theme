@@ -24,21 +24,21 @@ import sourcemaps from 'gulp-sourcemaps';
 
 // 【設定】ローカルWordPressのURLを自動取得（Local Sitesフォルダ名から推測）
 const siteNameMatch = process.cwd().match(/Local Sites[\\/]([^\\/]+)/);
-const siteName = siteNameMatch ? siteNameMatch[1] : "localhost";
-const projectUrl = `http://${siteName}.local/`; 
+const siteName = siteNameMatch ? siteNameMatch[1] : "es";
+const projectUrl = `http://${siteName}.local/`;
 
 const sass = gulpSass(dartSass);
 const browserSyncInstance = browserSync.create();
 
 // フォルダ構成（WordPressテーマ内の構成に合わせて変更してください）
 // ※ settingsフォルダなどは手動管理のためここには含めません
-const scssDirs = ["layout", "components", "pages"]; 
+const scssDirs = ["layout", "components", "pages"];
 const baseDir = "./src/assets/sass/";
 
 // 共通のエラーハンドラ（通知付き・安定版）
 function errorHandler(err) {
-    console.error(err.message); 
-    
+    console.error(err.message);
+
     nodeNotifier.notify({
         title: 'Gulp Error',
         message: err.message,
@@ -60,13 +60,13 @@ function generateIndexScss(done) {
         if (fs.existsSync(fullPath) && fs.lstatSync(fullPath).isDirectory()) {
             const files = fs.readdirSync(fullPath)
                 .filter(file => file.endsWith('.scss') && file !== 'index.scss');
-            
+
             files.sort();
 
             const importStatements = files
                 .map(file => `@use "${file.replace('.scss', '')}";`)
                 .join('\n');
-            
+
             fs.writeFileSync(
                 path.join(fullPath, 'index.scss'),
                 `/* Auto-generated index.scss for ${dir} */\n${importStatements}`
@@ -166,7 +166,7 @@ function watchFiles() {
     watch([baseDir + "**/*.scss", "!" + baseDir + "**/index.scss"], gulp.series(generateIndexScss, gulp.parallel(compileSass, compileCritical)));
     watch("./src/assets/js/**/*.js", gulp.series(formatJS));
     watch("./src/assets/img/**/*", gulp.series(copyImage));
-    
+
     // PHPファイルの変更時はブラウザをリロード
     watch("./**/*.php").on('change', browserSyncInstance.reload);
 }

@@ -3,7 +3,7 @@
 get_header();
 ?>
 
-<main class="l-main">
+
     <div class="l-container">
 
         <h1 class="c-heading --h1">
@@ -69,6 +69,6 @@ get_header();
         </section>
 
     </div>
-</main>
+
 
 <?php get_footer(); ?>

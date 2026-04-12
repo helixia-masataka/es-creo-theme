@@ -1,0 +1,133 @@
+@use "../settings" as *;
+
+.p-works-detail {
+  background-color: var(--bg-main);
+  min-height: 100vh;
+  padding-top: rem(120); // Header allowance
+  padding-bottom: rem(100);
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: rem(40);
+    align-items: start;
+
+    @include mq(lg) {
+      grid-template-columns: rem(680) 1fr;
+      gap: rem(60);
+    }
+  }
+
+  /* 左側：画像エリア */
+  &__left {
+    width: 100%;
+  }
+
+  &__images {
+    display: flex;
+    flex-direction: column;
+    gap: rem(40);
+  }
+
+  &__image-item {
+    margin: 0;
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  /* 右側：テキストエリア */
+  &__right {
+    position: relative;
+    @include mq(lg) {
+      position: sticky;
+      top: rem(140);
+    }
+  }
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(40);
+  }
+
+  &__title {
+    font-size: rem(18);
+    font-weight: var(--medium);
+    line-height: 1.6;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: var(--text-main);
+
+    br {
+      display: block; // Always break
+    }
+  }
+
+  &__text {
+    font-size: rem(14);
+    line-height: 2;
+    color: var(--text-main);
+    font-weight: var(--medium);
+  }
+
+  &__info {
+    margin: 0;
+    font-size: rem(13);
+    line-height: 1.8;
+    text-transform: uppercase;
+    color: var(--text-main);
+  }
+
+  &__info-item {
+    display: flex;
+    gap: 0.5em;
+
+    dt {
+      flex-shrink: 0;
+    }
+    dd {
+      margin: 0;
+    }
+  }
+
+  &__link {
+    margin-top: rem(10);
+
+    a {
+      font-family: var(--font-en-sub);
+      font-size: rem(24);
+      color: var(--text-accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &-icon {
+      width: rem(16);
+      height: rem(16);
+      display: inline-block;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234e8200' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__back {
+    margin-top: rem(20);
+  }
+}
+
+
+.p-works-detail__image-item{
+  max-width: 800px;
+}

@@ -1,5 +1,5 @@
 <header class="l-header">
-    <div class="l-container">
+    <div class="l-container l-header__container">
         <div class="l-header__inner">
 
             <?php // トップページかどうかで h1 か div を判定 ?>
@@ -20,7 +20,7 @@
             </<?php echo $logo_tag; ?>>
 
             <div class="l-header__info c-drawer">
-                <?php // WPの管理画面でメニューを登録しているとき?>
+                <?php // WPの管理画面でメニューを登録しているとき ?>
                 <?php if (has_nav_menu('header-menu')): ?>
                     <?php
                     wp_nav_menu(array(
@@ -29,7 +29,7 @@
                         'container_class' => 'l-header__nav c-drawer__wrapper',
                         'container_aria_label' => 'グローバルナビゲーション',
                         'menu_class' => 'l-header__lists',
-                        'menu_id' => 'global-nav', 
+                        'menu_id' => 'global-nav',
                         'depth' => 2,
                     ));
                     ?>
@@ -38,25 +38,40 @@
                     <nav aria-label="グローバルナビゲーション" class="l-header__nav c-drawer__wrapper">
                         <ul id="global-nav" class="l-header__lists">
                             <?php
-                            // トップページにいる時は「#top」、下層ページにいる時はトップページに遷移
+                            // トップページにいる時は「#top」､下層ページにいる時はトップページに遷移
                             $top_link = is_front_page() ? '#top' : esc_url(home_url('/'));
                             ?>
-                            <li><a href="<?php echo $top_link; ?>">Top</a></li>
-                            <li><a href="<?php echo esc_url(home_url('/section1/')); ?>">ナビ1</a></li>
-                            <li><a href="<?php echo esc_url(home_url('/section2/')); ?>">ナビ2</a></li>
-                            <li><a href="<?php echo esc_url(home_url('/section3/')); ?>">ナビ3</a></li>
-                            <li><a href="<?php echo esc_url(home_url('/section4/')); ?>">ナビ4</a></li>
+                            <li><a href="<?php echo $top_link; ?>">top</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/about/')); ?>">about</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/about/#news')); ?>">news</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">contact</a></li>
+                            <li><a href="<?php echo esc_url('https://www.instagram.com/_____es.d'); ?>" target="_blank"
+                                    rel="noopener noreferrer"><img
+                                        src="<?php echo esc_url(get_theme_file_uri('/img/icon-instagram.svg')); ?>"
+                                        alt="Instagram"></a></li>
                         </ul>
                     </nav>
                 <?php endif; ?>
             </div>
 
-            <button type="button" class="c-drawer__btn" aria-controls="global-nav" aria-expanded="false" aria-label="メニューを開閉する">
-                <span class="c-drawer__bars" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
+            <button type="button" class="c-drawer__btn" aria-controls="global-nav" aria-expanded="false"
+                aria-label="メニューを開閉する">
+                <div class="c-drawer__icon-wrapper">
+                    <span class="c-drawer__icon --close">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/img/icon-book-close.svg')); ?>" alt="">
+                    </span>
+                    <span class="c-drawer__icon --open">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/img/icon-book-open.svg')); ?>" alt="">
+                    </span>
+                </div>
+                <div class="c-drawer__text">
+                    <span class="c-drawer__text-menu">
+                        <span>m</span><span>e</span><span>n</span><span>u</span>
+                    </span>
+                    <span class="c-drawer__text-close">
+                        <span>c</span><span>l</span><span>o</span><span>s</span><span>e</span>
+                    </span>
+                </div>
             </button>
 
         </div>

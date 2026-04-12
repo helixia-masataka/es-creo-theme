@@ -93,12 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstEl = focusableEls[0];
         const lastEl = focusableEls[focusableEls.length - 1];
 
-        // 「Shift + Tab」かつ「今のフォーカスが先頭要素」の場合、末尾へ移動
+        // 「Shift + Tab」かつ「今のフォーカスが先頭要素」の場合､末尾へ移動
         if (e.shiftKey && document.activeElement === firstEl) {
             e.preventDefault();
             lastEl.focus();
         }
-        // 「Tab」かつ「今のフォーカスが末尾要素」の場合、先頭へ移動
+        // 「Tab」かつ「今のフォーカスが末尾要素」の場合､先頭へ移動
         else if (!e.shiftKey && document.activeElement === lastEl) {
             e.preventDefault();
             firstEl.focus();
@@ -119,16 +119,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------- ドロワー内のクリック制御 ----------
     drawer.addEventListener('click', (e) => {
         // ① オーバーレイ（ドロワーの背景部分）をクリックした時に閉じる
-        // ※ drawer自身が全画面の黒背景で、その中に白いメニューがある構造を想定
+        // ※ drawer自身が全画面の黒背景で､その中に白いメニューがある構造を想定
         if (e.target === drawer) {
             closeDrawer();
         }
 
-        // ② ドロワー内のリンク (aタグ) をクリックした時に閉じる
-        // ※ ページ内リンク（#contact など）を押した時にメニューが開きっぱなしになるのを防ぐ
-        const isLink = e.target.closest('a[href]');
-        if (isLink) {
-            closeDrawer();
+        // ② ドロワー内のリンク (aタグ) またはメニュー項目 (li) をクリックした時に閉じる
+        const link = e.target.closest('a[href]');
+        const li = e.target.closest('.l-header__lists li');
+
+        if (link || li) {
+            const targetLink = link || li.querySelector('a[href]');
+            if (!targetLink) return;
+
+            const href = targetLink.getAttribute('href');
+
+            // ページ内リンク（#contact など）の場合
+            if (href.startsWith('#')) {
+                closeDrawer();
+                return;
+            }
+
+            // 別タブで開くリンクの場合
+            if (targetLink.getAttribute('target') === '_blank') {
+                closeDrawer();
+                return;
+            }
+
+            // 通常の遷移リンクの場合
+            e.preventDefault(); // 即時の遷移を止める
+            closeDrawer(); // アニメーション開始
+
+            // アニメーションが十分に進んだタイミングで遷移
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); // CSSの transition 0.6s と同期
         }
     });
 });
@@ -164,63 +189,7 @@ smoothScrollTriggers.forEach((smoothScrollTrigger) => {
 });
 
 
-//* ===============================================
-//# スクロール時、カラー変更
-document.addEventListener('DOMContentLoaded', function () {
-    const cDrawerBtn = document.querySelector('.c-drawer__btn');
-    const cDrawerBar = document.querySelector('.c-drawer__bars');
-    const cDrawerBarSpan = cDrawerBar.querySelectorAll('span');
 
-    function setDrawerBarSpanColor(color) {
-        // 取得した NodeList をループして各要素に色を適用
-        cDrawerBarSpan.forEach(function (span) {
-            span.style.backgroundColor = color;
-        });
-    }
-
-    function handleScroll() {
-        // 画面幅が1279px以下 かつ スクロール量が0より大きいとき
-        if (window.innerWidth <= 1279 && window.scrollY > 0) {
-            // ボタンの背景色をオレンジに
-            cDrawerBtn.style.backgroundColor = 'var(--global-green)';
-            // span の背景色を白に
-            setDrawerBarSpanColor('var(--color-secondary)');
-        } else {
-            // 条件に当てはまらない場合はデフォルトに戻す
-            cDrawerBtn.style.backgroundColor = '';
-            setDrawerBarSpanColor('');
-        }
-    }
-
-    // スクロール時
-    window.addEventListener('scroll', handleScroll);
-    // リサイズ時
-    window.addEventListener('resize', handleScroll);
-    // 初期ロード時
-    handleScroll();
-});
-//=============================================== *//
-
-//* ===============================================
-//# スクロール時ロゴ隠す
-document.addEventListener('DOMContentLoaded', function () {
-    const logo = document.querySelector('.l-header__logo');
-
-    window.addEventListener('scroll', function () {
-        // スクロール量をチェック
-        const scrollY = window.scrollY;
-
-        // スクロール量が100pxを超えたら隠す
-        if (scrollY > 100) {
-            logo.style.opacity = '0';
-            logo.style.visibility = 'hidden';
-        } else {
-            logo.style.opacity = '1';
-            logo.style.visibility = 'visible';
-        }
-    });
-});
-//=============================================== *//
 //* ===============================================
 //# // フェードインアニメーション
 document.addEventListener('DOMContentLoaded', function () {

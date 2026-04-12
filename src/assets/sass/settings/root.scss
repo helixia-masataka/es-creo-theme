@@ -2,98 +2,92 @@
 
 :root {
   /* =========================================
-      ①カラーパレット(グローバルカラーの登録)
-        デザインで使用する色をここで定義します。
-        ただし、使用頻度が極端に少ない(1~2箇所だけなど)場合は、都度直接指定します。
-        2つの階層に分けて登録します。
-        ・テーマカラー：主にデザインを構成する色を定義します。
-        ・ベースカラー：主に無彩色(白・黒・グレー)を定義します。
+    ①カラーパレットの登録
+    　デザインで使用する色をここで定義します。
+    　ただし､使用頻度が極端に少ない(1~2箇所だけなど)場合は､都度直接指定します。
     ========================================= */
-  // テーマカラー（メインカラー群）
-  --global-main-darkest: #053334;
-  --global-main-dark: #084c4d;
-  --global-main: #0c6768;
-  --global-main-light: #2d8889;
-  --global-main-lighter: #5da9a9;
-
-  // アクセントカラー
-  --global-accent: #690e0d;
-  --global-danger: #E63946;
-
-  // ベースカラー（背景・無彩色）
-  --global-white: #ffffff;
-  --global-bg-light: #f8f7f5;
-  --global-bg-gray: #f1efec;
-  --global-bg-darker: #e4e2e0;
-
-  // テキストカラー
-  --global-text-main: #222222;
-  --global-text-sub: #505050;
-
+  //使用カラー
+  --color-green: #4e8200;
+  --color-grey: #dee0db;
+  --color-black: #333333;
+  --color-white: #ffffff;
   /* =========================================
-       ②デザイン構成色
-       ・どこで使用するかを「役割」で定義して、①の変数を割り当てます。
-       ・HTML/CSS側では、原則として下記の変数を使用します。
+    ②デザイン構成色の登録
+    ・変数名は､「global」に続けて､「役割」と「使用頻度」を組み合わせた名前をつけます。
+    ・「役割」は､「背景(bg)」「文字(text)」「枠線(border)」など､デザイン上で仕様される場所を基準として定義します。
+    ・「使用頻度」は､デザイン上で使用される頻度を基準として定義します。頻度で使用する名称は次の通りです。
+      ・main：最も使用頻度が高い要素
+      ・sub：2番目に使用頻度が高い要素
+      ・accent：3番目に使用頻度が低い要素
+      ※4色以上使用しなければならない際の命名は､各コーダーに委ねる。
     ========================================= */
-  // デザインにおける役割の定義
-  --color-primary: var(--global-main);
-  --color-secondary: var(--global-main-dark);
-  --color-accent: var(--global-accent);
 
   // 背景色
-  --bg-body: var(--global-bg-light);
-  --bg-cta: var(--global-main);
-  --bg-surface: var(--global-white); // 白背景（カードやAboutUS等）
-  --bg-section: var(--global-bg-gray); // グレーセクション背景
-  --bg-accent: var(--global-accent); // CTAなどのアクセント背景
-  --bg-danger: var(--global-danger); // CTAなどのアクセント背景
+  --global-bg-main: var(--color-grey);
+  --global-bg-sub: var(--color-green);
+  --global-bg-accent: var(--color-white);
 
   // 文字色
-  --text-body: var(--global-text-main); // #222222
-  --text-sub: var(--global-text-sub); // #505050
-  --text-link: var(--global-main); // リンクや見出し等
-  --text-cta: var(--global-white); // リンクや見出し等
+  --global-text-main: var(--color-black);
+  --global-text-sub: var(--color-white);
+  --global-text-accent: var(--color-green);
+
+  // 枠線
+  --global-border-main: var(--color-black);
+  --global-border-sub: var(--color-green);
 
   /* =========================================
-       ③ タイポグラフィ・レイアウト（その他）
+    ③実行用変数の登録
+    ・ここで登録した変数を､各フォルダで使用します。
+    ・変数名は､②の変数名から「global」を除いた変数名を登録します。
+    ========================================= */
+
+  // 背景色
+  --bg-main: var(--global-bg-main);
+  --bg-sub: var(--global-bg-sub);
+  --bg-accent: var(--global-bg-accent);
+
+  // 文字色
+  --text-main: var(--global-text-main);
+  --text-sub: var(--global-text-sub);
+  --text-accent: var(--global-text-accent);
+
+  //枠線色
+  --border-main: var(--global-border-main);
+  --border-sub: var(--global-border-sub);
+
+  /* =========================================
+    ③ タイポグラフィ・レイアウト（その他）
     ========================================= */
   // font-family
   --font-jp: "Noto Sans JP", sans-serif;
-  --font-en: "Poppins", sans-serif;
+  --font-en: "Ysabeau SC", sans-serif;
+  --font-en-sub: "Sacramento", cursive;
 
   // font-weight
+  --light: 200;
+  --semilight: 350;
+  --regular: 500;
   --medium: 500;
-  --bold: 700;
 
   //共通コンテナ(インナー)
   --container: calc(var(--limit-bp) + (var(--container-side) * 2));
-  --container-side: #{fluid(18px, 40px)};
-  --container-l: #{rem(1200)};
+  --container-side: #{fluid(27.5px, 40px)};
+  --container-l: #{rem(1132)};
   --container-m: #{rem(800)};
-  --container-s: #{rem(600)};
+  --container-s: #{rem(675)};
   --limit-bp: #{$limit-bp};
   --min-bp: #{$default-min-bp};
   --max-bp: #{$default-max-bp};
 
   //ヘッダー高さ
-  --header-height: 90;
-
-  // グラデーション（MV用）
-  --bg-grad-mv: linear-gradient(
-    180deg,
-    rgba(5, 51, 52, 0.6) 0%,
-    rgba(12, 103, 104, 0.3) 100%
-  );
-
-  // ボーダーカラー
-  --color-base: var(--global-white);
-  --border-light: var(--global-bg-darker);
+  --header-height: 93;
 }
 
 /* =========================================
    ④ ダークモード
    OS設定に連動して自動切り替え。
-   ②デザイン構成色だけを上書きするため、
+   ②デザイン構成色だけを上書きするため､
    HTML/Sassの変更は一切不要。
    ========================================= */
 @media (prefers-color-scheme: dark) {
@@ -111,13 +105,13 @@
     --color-secondary: var(--global-main-lighter);
 
     // 背景色
-    --bg-body: var(--global-dark-bg);
+    --bg-main: var(--global-dark-bg);
     --bg-cta: var(--global-main-dark);
     --bg-surface: var(--global-dark-surface);
     --bg-section: var(--global-dark-section);
 
     // 文字色
-    --text-body: var(--global-dark-text);
+    --text-main: var(--global-dark-text);
     --text-sub: var(--global-dark-text-sub);
     --text-link: var(--global-main-light);
     --text-cta: var(--global-white);

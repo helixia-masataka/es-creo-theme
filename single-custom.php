@@ -17,7 +17,7 @@ get_header();
                             </time>
                             <div class="p-single__category">
                                 <?php
-                                // 'slug_category' を、登録したタクソノミースラッグに変更する
+                                // 'slug_category' を､登録したタクソノミースラッグに変更する
                                 $terms = get_the_terms(get_the_ID(), 'slug_category');
                                 if ($terms && !is_wp_error($terms)) {
                                     $term_links = array();
@@ -61,3 +61,4 @@ get_header();
 </div>
 
 <?php get_footer(); ?>
+

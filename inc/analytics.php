@@ -4,7 +4,7 @@
 //* ===============================================
 //
 // 【このファイルの特徴】
-// GA4 や GTM などのトラッキングコードを管理し、ユーザーの行動分析を容易にします。
+// GA4 や GTM などのトラッキングコードを管理し､ユーザーの行動分析を容易にします。
 //
 // 1. WordPress カスタマイザーからGA4 / GTM IDをノーコード設定
 // 2. GA4 / GTM の排他制御（二重出力防止）
@@ -58,7 +58,7 @@ function helixia_analytics_customizer($wp_customize)
     ));
     $wp_customize->add_control('helixia_gtm_id', array(
         'label' => 'GTM コンテナID',
-        'description' => '例: GTM-XXXXXXX（GA4と併用する場合はGTM側で管理するため、GA4 IDは空にしてください）',
+        'description' => '例: GTM-XXXXXXX（GA4と併用する場合はGTM側で管理するため､GA4 IDは空にしてください）',
         'section' => 'helixia_analytics',
         'type' => 'text',
     ));
@@ -190,81 +190,81 @@ function helixia_tracking_scripts()
     $use_gtm = !empty($gtm_id);
     ?>
 
-<script>
-(function(){
-    // --- 共通: イベント送信関数 ---
-    function sendEvent(eventName, params) {
-        <?php if ($use_gtm) : ?>
-        // GTM 経由
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(Object.assign({event: eventName}, params));
-        <?php else : ?>
-        // GA4 直接
-        if (typeof gtag === 'function') {
-            gtag('event', eventName, params);
-        }
-        <?php endif; ?>
-    }
+    <script>
+        (function () {
+            // --- 共通: イベント送信関数 ---
+            function sendEvent(eventName, params) {
+                <?php if ($use_gtm): ?>
+                    // GTM 経由
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push(Object.assign({ event: eventName }, params));
+                <?php else: ?>
+                    // GA4 直接
+                    if (typeof gtag === 'function') {
+                        gtag('event', eventName, params);
+                    }
+                <?php endif; ?>
+            }
 
-    // --- 1. スクロール深度トラッキング ---
-    var idle = window.requestIdleCallback || function(cb){ setTimeout(cb, 100); };
+            // --- 1. スクロール深度トラッキング ---
+            var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 100); };
 
-    idle(function(){
-        var thresholds = [25, 50, 75, 100];
-        var fired = {};
-        var ticking = false;
+            idle(function () {
+                var thresholds = [25, 50, 75, 100];
+                var fired = {};
+                var ticking = false;
 
-        function checkScroll() {
-            var h = document.documentElement;
-            var scrollTop = window.pageYOffset || h.scrollTop;
-            var scrollHeight = h.scrollHeight - h.clientHeight;
-            if (scrollHeight <= 0) return;
+                function checkScroll() {
+                    var h = document.documentElement;
+                    var scrollTop = window.pageYOffset || h.scrollTop;
+                    var scrollHeight = h.scrollHeight - h.clientHeight;
+                    if (scrollHeight <= 0) return;
 
-            var pct = Math.round((scrollTop / scrollHeight) * 100);
+                    var pct = Math.round((scrollTop / scrollHeight) * 100);
 
-            for (var i = 0; i < thresholds.length; i++) {
-                var t = thresholds[i];
-                if (pct >= t && !fired[t]) {
-                    fired[t] = true;
-                    sendEvent('scroll_depth', {
-                        depth_threshold: t,
-                        page_path: location.pathname
-                    });
+                    for (var i = 0; i < thresholds.length; i++) {
+                        var t = thresholds[i];
+                        if (pct >= t && !fired[t]) {
+                            fired[t] = true;
+                            sendEvent('scroll_depth', {
+                                depth_threshold: t,
+                                page_path: location.pathname
+                            });
+                        }
+                    }
                 }
-            }
-        }
 
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(function() {
-                    checkScroll();
-                    ticking = false;
+                window.addEventListener('scroll', function () {
+                    if (!ticking) {
+                        requestAnimationFrame(function () {
+                            checkScroll();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 });
-                ticking = true;
-            }
-        });
 
-        // 初期チェック（短いページで既に100%の場合）
-        checkScroll();
-    });
+                // 初期チェック（短いページで既に100%の場合）
+                checkScroll();
+            });
 
-    // --- 2. CTA クリック計測 ---
-    document.addEventListener('click', function(e) {
-        var el = e.target.closest('[data-track]');
-        if (!el) return;
+            // --- 2. CTA クリック計測 ---
+            document.addEventListener('click', function (e) {
+                var el = e.target.closest('[data-track]');
+                if (!el) return;
 
-        var ctaName = el.getAttribute('data-track');
-        var ctaUrl = el.getAttribute('href') || '';
+                var ctaName = el.getAttribute('data-track');
+                var ctaUrl = el.getAttribute('href') || '';
 
-        sendEvent('cta_click', {
-            cta_name: ctaName,
-            cta_url: ctaUrl,
-            page_path: location.pathname
-        });
-    });
+                sendEvent('cta_click', {
+                    cta_name: ctaName,
+                    cta_url: ctaUrl,
+                    page_path: location.pathname
+                });
+            });
 
-})();
-</script>
+        })();
+    </script>
 
     <?php
 }

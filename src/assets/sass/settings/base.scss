@@ -1,44 +1,45 @@
-@use 'sass:math';
-@use 'functions' as *;
-@use 'mixin' as *;
+@use "sass:math";
+@use "functions" as *;
+@use "mixin" as *;
 
 //* ===============================================
 //# 共通設定
 //=============================================== *//
 
 html {
-    font-size: math.div($root-font-size, 16px) * 100%;
+  font-size: math.div($root-font-size, 16px) * 100%;
 }
 
 body {
-    color: var(--text-body);
-    font-family: var(--font-jp);
-    font-size: fluid(14, 16);
-    font-style: normal;
-    font-weight: var(--medium);
-    letter-spacing: em(0.32, 16);
-    line-height: 1.0;
-    //以下3つは削除しない
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    &.is-open {
-        overflow: hidden;
-    }
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  font-family: var(--font-jp);
+  font-size: fluid(14, 16);
+  font-style: normal;
+  font-weight: var(--regular);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  //以下3つは削除しない
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  &.is-open {
+    overflow: hidden;
+  }
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 main {
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 h1,
@@ -48,17 +49,17 @@ h4,
 p,
 ul,
 li {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 img {
-    vertical-align: bottom;
-    max-width: 100%;
-    width: 100%;
-    height: auto;
+  vertical-align: bottom;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
 }

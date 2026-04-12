@@ -110,7 +110,7 @@ if (!defined('WP_POST_REVISIONS')) {
 
 /**
  * 下書き記事にログイン不要でアクセスできる共有リンクを生成する。
- * トークンは投稿メタに保存し、48時間で期限切れ。
+ * トークンは投稿メタに保存し､48時間で期限切れ。
  */
 
 // 投稿編集画面にプレビューリンクを表示
@@ -138,7 +138,7 @@ function helixia_preview_link_meta_box_content($post)
     $token = get_post_meta($post->ID, '_helixia_preview_token', true);
     $expires = get_post_meta($post->ID, '_helixia_preview_expires', true);
 
-    if (empty($token) || (int)$expires < time()) {
+    if (empty($token) || (int) $expires < time()) {
         $token = wp_generate_password(32, false);
         $expires = time() + (48 * 3600); // 48時間
         update_post_meta($post->ID, '_helixia_preview_token', $token);
@@ -146,12 +146,12 @@ function helixia_preview_link_meta_box_content($post)
     }
 
     $preview_url = add_query_arg(array(
-        'p'             => $post->ID,
-        'preview'       => 'true',
+        'p' => $post->ID,
+        'preview' => 'true',
         'preview_token' => $token,
     ), home_url('/'));
 
-    $remaining = human_time_diff(time(), (int)$expires);
+    $remaining = human_time_diff(time(), (int) $expires);
 
     echo '<p><input type="text" value="' . esc_url($preview_url) . '" readonly style="width:100%" onclick="this.select()"></p>';
     echo '<p style="color:#666;font-size:12px">有効期限: あと約' . esc_html($remaining) . '（48時間）</p>';
@@ -175,7 +175,7 @@ function helixia_allow_preview_access($posts, $query)
     $saved_token = get_post_meta($post_id, '_helixia_preview_token', true);
     $expires = get_post_meta($post_id, '_helixia_preview_expires', true);
 
-    if ($token === $saved_token && (int)$expires > time()) {
+    if ($token === $saved_token && (int) $expires > time()) {
         // トークンが有効 → 下書き記事を返す
         return array(get_post($post_id));
     }
@@ -224,12 +224,12 @@ function helixia_json_ld_admin_bar($wp_admin_bar)
     $label = empty($schemas) ? '⚠️ JSON-LD: なし' : '✅ JSON-LD: ' . implode(', ', $schemas);
 
     $wp_admin_bar->add_node(array(
-        'id'    => 'helixia-jsonld-check',
+        'id' => 'helixia-jsonld-check',
         'title' => $label,
-        'href'  => 'https://search.google.com/test/rich-results?url=' . urlencode(home_url($_SERVER['REQUEST_URI'])),
-        'meta'  => array(
+        'href' => 'https://search.google.com/test/rich-results?url=' . urlencode(home_url($_SERVER['REQUEST_URI'])),
+        'meta' => array(
             'target' => '_blank',
-            'title'  => 'Google リッチリザルトテストで確認',
+            'title' => 'Google リッチリザルトテストで確認',
         ),
     ));
 }
@@ -241,7 +241,7 @@ add_action('admin_bar_menu', 'helixia_json_ld_admin_bar', 999);
 //* ===============================================
 
 /**
- * カテゴリー編集画面にカラーピッカーを追加し、
+ * カテゴリー編集画面にカラーピッカーを追加し､
  * カテゴリーごとのテーマカラーを設定可能にする。
  */
 
@@ -325,64 +325,64 @@ function helixia_dashboard_widget_content()
     // チェック項目一覧
     $checks = array(
         array(
-            'label'  => 'GA4 トラッキング',
+            'label' => 'GA4 トラッキング',
             'status' => !empty($ga4_id),
             'detail' => !empty($ga4_id) ? $ga4_id : '未設定',
-            'link'   => admin_url('customize.php?autofocus[section]=helixia_analytics'),
+            'link' => admin_url('customize.php?autofocus[section]=helixia_analytics'),
         ),
         array(
-            'label'  => 'GTM コンテナ',
+            'label' => 'GTM コンテナ',
             'status' => !empty($gtm_id),
             'detail' => !empty($gtm_id) ? $gtm_id : '未設定',
-            'link'   => admin_url('customize.php?autofocus[section]=helixia_analytics'),
+            'link' => admin_url('customize.php?autofocus[section]=helixia_analytics'),
         ),
         array(
-            'label'  => 'Cookie同意バナー',
+            'label' => 'Cookie同意バナー',
             'status' => $cookie_enabled,
             'detail' => $cookie_enabled ? '有効' : '無効',
-            'link'   => admin_url('customize.php?autofocus[section]=helixia_cookie_consent'),
+            'link' => admin_url('customize.php?autofocus[section]=helixia_cookie_consent'),
         ),
         array(
-            'label'  => 'LocalBusiness 構造化データ',
+            'label' => 'LocalBusiness 構造化データ',
             'status' => !empty($biz_region),
             'detail' => !empty($biz_name) ? $biz_name : '未設定',
-            'link'   => admin_url('customize.php?autofocus[section]=helixia_local_business'),
+            'link' => admin_url('customize.php?autofocus[section]=helixia_local_business'),
         ),
         array(
-            'label'  => 'Web Vitals 計測',
+            'label' => 'Web Vitals 計測',
             'status' => !empty($ga4_id),
             'detail' => !empty($ga4_id) ? 'GA4連携中' : 'GA4未設定のため無効',
-            'link'   => '',
+            'link' => '',
         ),
         array(
-            'label'  => 'Critical CSS',
+            'label' => 'Critical CSS',
             'status' => file_exists(get_theme_file_path('/css/critical.css')),
             'detail' => file_exists(get_theme_file_path('/css/critical.css')) ? 'ファイル検出済み' : 'critical.css 未生成',
-            'link'   => '',
+            'link' => '',
         ),
         array(
-            'label'  => 'カスタムロゴ',
-            'status' => (bool)get_theme_mod('custom_logo'),
+            'label' => 'カスタムロゴ',
+            'status' => (bool) get_theme_mod('custom_logo'),
             'detail' => get_theme_mod('custom_logo') ? '設定済み' : '未設定',
-            'link'   => admin_url('customize.php?autofocus[section]=title_tagline'),
+            'link' => admin_url('customize.php?autofocus[section]=title_tagline'),
         ),
         array(
-            'label'  => 'サイトアイコン',
+            'label' => 'サイトアイコン',
             'status' => has_site_icon(),
             'detail' => has_site_icon() ? '設定済み' : '未設定',
-            'link'   => admin_url('customize.php?autofocus[section]=title_tagline'),
+            'link' => admin_url('customize.php?autofocus[section]=title_tagline'),
         ),
     );
 
     // テーマ内機能（ファイル存在チェック）
     $features = array(
-        'ai-search.php'       => 'AI検索最適化',
-        'media.php'           => 'メディアサイト機能',
-        'analytics.php'       => 'GA4 / イベント計測',
+        'ai-search.php' => 'AI検索最適化',
+        'media.php' => 'メディアサイト機能',
+        'analytics.php' => 'GA4 / イベント計測',
         'schema-business.php' => 'ビジネス構造化データ',
-        'seo.php'             => 'SEO / OGP / JSON-LD',
-        'security.php'        => 'セキュリティ強化',
-        'performance.php'     => 'パフォーマンス最適化',
+        'seo.php' => 'SEO / OGP / JSON-LD',
+        'security.php' => 'セキュリティ強化',
+        'performance.php' => 'パフォーマンス最適化',
         'helper-frontend.php' => 'フロントエンド補助機能',
     );
 
@@ -422,7 +422,7 @@ function helixia_dashboard_widget_content()
     $post_count = wp_count_posts('post');
     $page_count = wp_count_posts('page');
     echo '<h4 style="margin:16px 0 4px">📊 コンテンツ統計</h4>';
-    echo '<p style="margin:0">投稿: <strong>' . (int)$post_count->publish . '</strong> 件 / 固定ページ: <strong>' . (int)$page_count->publish . '</strong> 件</p>';
+    echo '<p style="margin:0">投稿: <strong>' . (int) $post_count->publish . '</strong> 件 / 固定ページ: <strong>' . (int) $page_count->publish . '</strong> 件</p>';
 
     echo '</div>';
 }

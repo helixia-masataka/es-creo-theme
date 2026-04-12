@@ -1,195 +1,198 @@
 @use "../settings/" as *;
-//* ===============================================
-//# トップページ専用
-//=============================================== *//
 
-//* ===============================================
-//# p-home-mv
-.p-home-mv {
-  width: 100%;
+.p-home-works {
+  padding-top: rem(7);
 }
 
-.p-home-mv__container {
-  width: 100%;
-  position: relative;
+.p-home-works__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: rem(10);
+
+  // タブレット以上で2カラム
+  @include mq(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 小さめのPCモニターから3カラムにする
+  @include mq(960) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.p-home-mv__visual {
+.p-work-card {
   position: relative;
-  @include fluid-v(height, 860, 640);
-  &::after {
-    position: absolute;
-    top: 0;
-    left: 0;
+  overflow: hidden;
+  border-radius: rem(8);
+  background-color: var(--global-black); // 暗転時の下地
+
+  &__link {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  &__thumb {
     width: 100%;
     height: 100%;
-    background: var(--bg-grad-mv);
-    opacity: 0.75;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0; // 全面を覆う
+    background-color: rgba(0, 0, 0, 0.4); // 暗転レイヤー
+    display: flex;
+    align-items: flex-end;
+    padding: rem(20) rem(24);
+    opacity: 0; // 初期状態は非表示
+    transition: opacity 0.4s ease;
+    z-index: 2;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: rem(20);
+    width: 100%;
+    height: 100%;
+    color: var(--text-sub); // 白文字
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    @include mq("md") {
+      text-shadow: unset;
+    }
+  }
+
+  &__title {
+    font-size: rem(20);
+    font-weight: var(--medium);
+    margin: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__more {
+    font-family: var(--font-en);
+    font-size: rem(20);
+    letter-spacing: 0.1em;
+    font-weight: var(--medium);
+    color: var(--global-white); // 白文字
+    flex-shrink: 0;
+    padding-right: rem(16);
+  }
+
+  // Hover effect
+  @include mq(md) {
+    &:hover {
+      .p-work-card__thumb img {
+        transform: scale(1.05);
+        opacity: 0.7; // 画像自体を少し薄くして暗転効果を補助
+      }
+      .p-work-card__overlay {
+        opacity: 1;
+      }
+    }
+  }
+
+  // スマホ・タッチデバイスではオーバーレイを常に表示するか､タップ時に反応させる
+  @include mq(md, max) {
+    .p-work-card__overlay {
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 50%
+      );
+      padding: rem(10);
+    }
+    .p-work-card__title {
+      //  font-size: rem(12);
+    }
   }
 }
 
-.p-home-mv__visual img {
+// Category Chips
+.p-home-categories {
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  padding-bottom: rem(20);
+  z-index: 100;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: linear-gradient(
+    to top,
+    var(--bg-main) 70%,
+    transparent
+  ); // 背景に馴染ませるグラデーション
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include mq(md) {
+    // position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    background: none;
+    padding-bottom: 0;
+    width: fit-content;
+  }
 }
 
-.p-home-mv__content {
-  position: absolute;
-  place-self: center;
-  inset: 0;
-  text-align: center;
-  z-index: 2;
-}
-
-.p-home-mv__copy {
-  font-size: fluid(32, 52);
-  color: var(--global-white);
-  font-weight: var(--bold);
-  line-height: 1.4;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-//=============================================== *//
-//* ===============================================
-//# Aboutセクション
-.p-home-about {
-  background-color: var(--bg-surface);
-}
-
-.p-home-about__head {
-  text-align: center;
-}
-
-.p-home-about__content p {
-  line-height: 2;
-  margin: fluid(16, 30) 0;
-  font-size: fluid(15, 16);
-  text-align: center;
-}
-
-//=============================================== *//
-//* ===============================================
-//# Newsセクション
-.p-home-news {
-  background-color: var(--bg-surface);
-}
-
-.p-home-news__container {
-  padding: rem(60) 0;
-  background-color: #f9f9f9;
-}
-
-.p-home-news__head {
-  margin: rem(30) 0;
-  text-align: center;
-}
-
-.p-home-news__content {
-  max-width: 800px;
-  margin: 0 auto rem(30);
-}
-
-.p-home-news__content p {
-  text-align: center;
-}
-
-.p-home-news__lists {
-  list-style: none;
-  padding: 0;
+.p-home-categories__list {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0; // 収縮を防いで重なりを解消
+  gap: rem(12) rem(16);
+  padding: 0 rem(20);
   margin: 0 auto;
-  max-width: 100%; // 1カラムの中央幅に合わせる
-  border-top: 1px solid var(--global-bg-darker);
-}
+  list-style: none;
+  width: fit-content;
 
-.p-home-news__list {
-  border-bottom: 1px solid var(--global-bg-darker);
-  padding: rem(15) 0;
-}
-
-.p-home-news__list a {
-  display: flex;
-  align-items: center;
-  padding: rem(32) rem(10);
-  text-decoration: none;
-  color: var(--text-body);
-  transition: background-color 0.3s;
-  gap: rem(16);
-
-  &:hover {
-    background-color: var(--global-bg-gray);
+  @include mq(md) {
+    justify-content: center;
+    padding: 0;
   }
 }
 
-.p-home-news__list time {
-  font-size: rem(13);
-  color: var(--text-sub);
-  display: block;
-}
+.p-home-categories__item {
+  flex-shrink: 0; // 各アイテム自体の収縮も防ぐ
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: rem(2.5) rem(16);
+    border-radius: rem(100);
+    border: 1px solid #8da697;
+    font-family: var(--font-en);
+    font-size: rem(20);
+    font-weight: 200;
+    letter-spacing: 0.1em;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    background-color: var(--bg-main);
+  }
 
-.p-home-news__title {
-  font-size: rem(18);
-  font-weight: var(--bold);
-  line-height: 1.6;
-}
-
-//=============================================== *//
-//* ===============================================
-//# サービスセクション
-
-.p-home-service {
-  background-color: var(--bg-surface);
-}
-
-.p-home-service__head {
-  margin: rem(30) 0;
-  text-align: center;
-}
-
-.p-home-service__lists {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: fluid(16, 30);
-}
-
-.p-home-service__list {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.p-service-card {
-}
-
-.p-service-card__item {
-  display: flex;
-  @include cq(619) {
-    display: block;
+  &.--active a,
+  a:hover {
+    background-color: var(--bg-sub);
+    color: var(--text-sub);
   }
 }
-
-.p-service-card__thumb {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.p-service-card__thumb img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.p-service-card__body {
-  padding: rem(20);
-}
-
-.p-service-card__head {
-  font-size: fluid(16, 24);
-}
-
-.p-service-card__text {
-  font-size: fluid(12, 16);
-  line-height: 1.8;
-  opacity: 0.9;
-  margin-top: rem(10);
-}
-

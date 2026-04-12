@@ -8,13 +8,13 @@
 // 主に以下の機能が統合されています：
 //
 // 1. ページタイプ取得・body クラス管理
-//    - 各ページごとの body クラスを自動生成し、bodyタグに付与することでCSSでの固有スタイリングを容易にします。
+//    - 各ページごとの body クラスを自動生成し､bodyタグに付与することでCSSでの固有スタイリングを容易にします。
 // 2. 汎用ページネーション
-//    - WordPress標準のページネーションをカスタマイズし、SVGの矢印アイコンを用いたモダンなデザインで出力します。
+//    - WordPress標準のページネーションをカスタマイズし､SVGの矢印アイコンを用いたモダンなデザインで出力します。
 // 3. Contact Form 7 カスタマイズ
-//    - CF7 の不要な自動 <p> タグ挿入を無効化し、送信完了時にサンクスページへ自動遷移する機能を追加します。
+//    - CF7 の不要な自動 <p> タグ挿入を無効化し､送信完了時にサンクスページへ自動遷移する機能を追加します。
 // 4. Cross-Document View Transitions（旧 view-transitions.php）
-//    - 画面遷移時のアニメーションに関する独自CSSを出力し、SPAのような滑らかなページ切り替えを実現します。
+//    - 画面遷移時のアニメーションに関する独自CSSを出力し､SPAのような滑らかなページ切り替えを実現します。
 //
 
 //* ===============================================
@@ -27,7 +27,7 @@ function get_data_page_type()
         return 'home';
     }
 
-    // 固定ページの場合、スラッグをそのまま返す（例: contact → 'contact'）
+    // 固定ページの場合､スラッグをそのまま返す（例: contact → 'contact'）
     if (is_page()) {
         $slug = get_post_field('post_name', get_post());
         if ($slug) {
@@ -35,7 +35,7 @@ function get_data_page_type()
         }
     }
 
-    // 上記以外のページは、すべて 'common'
+    // 上記以外のページは､すべて 'common'
     return 'common';
 }
 
@@ -135,8 +135,8 @@ function helixia_pagination()
     echo paginate_links(array(
         'current' => max(1, get_query_var('paged')),
         'total' => $wp_query->max_num_pages,
-        'prev_text' => '<span class="c-btn-pagenate --prev">' . $prev_svg . '</span>',
-        'next_text' => '<span class="c-btn-pagenate --next">' . $next_svg . '</span>',
+        'prev_text' => '<span class="c-btn-link-pagenate --prev">' . $prev_svg . '</span>',
+        'next_text' => '<span class="c-btn-link-pagenate --next">' . $next_svg . '</span>',
         'mid_size' => 1,
         'end_size' => 1,
     ));
@@ -152,7 +152,7 @@ function helixia_pagination()
 add_filter('wpcf7_autop_or_not', 'helixia_wpcf7_autop_return_false');
 function helixia_wpcf7_autop_return_false()
 {
-  return false;
+    return false;
 }
 
 //送信完了ページ遷移
@@ -160,8 +160,8 @@ function helixia_wpcf7_autop_return_false()
 add_action('wp_footer', 'helixia_redirect_to_thanks_page');
 function helixia_redirect_to_thanks_page()
 {
-  $homeUrl = esc_url(home_url());
-  echo <<<EOD
+    $homeUrl = esc_url(home_url());
+    echo <<<EOD
     <script>
       document.addEventListener( 'wpcf7mailsent', function( event ) {
         location = '{$homeUrl}/thanks/';
@@ -182,87 +182,102 @@ function helixia_redirect_to_thanks_page()
 function helixia_view_transitions_css()
 {
     ?>
-<style>
-/* ============================================= */
-/* Cross-Document View Transitions               */
-/* ============================================= */
+    <style>
+        /* ============================================= */
+        /* Cross-Document View Transitions               */
+        /* ============================================= */
 
-/* 1. View Transitions を有効化 */
-@view-transition {
-    navigation: auto;
-}
+        /* 1. View Transitions を有効化 */
+        @view-transition {
+            navigation: auto;
+        }
 
-/* 2. 各要素に view-transition-name を設定 */
-.l-header {
-    view-transition-name: site-header;
-}
+        /* 2. 各要素に view-transition-name を設定 */
+        .l-header {
+            view-transition-name: site-header;
+        }
 
-.l-header__logo {
-    view-transition-name: site-logo;
-}
+        .l-header__logo {
+            view-transition-name: site-logo;
+        }
 
-.l-main {
-    view-transition-name: main-content;
-}
+        .l-main {
+            view-transition-name: main-content;
+        }
 
-.l-footer {
-    view-transition-name: site-footer;
-}
+        .l-footer {
+            view-transition-name: site-footer;
+        }
 
-/* 3. デフォルトのクロスフェードをカスタマイズ */
+        /* 3. デフォルトのクロスフェードをカスタマイズ */
 
-/* ルート（ページ全体）のフェードを無効化（個別要素で制御するため） */
-::view-transition-group(root) {
-    animation-duration: 0s;
-}
+        /* ルート（ページ全体）のフェードを無効化（個別要素で制御するため） */
+        ::view-transition-group(root) {
+            animation-duration: 0s;
+        }
 
-/* ヘッダー: 遷移中も固定表示（フェードしない） */
-::view-transition-old(site-header),
-::view-transition-new(site-header) {
-    animation: none;
-}
+        /* ヘッダー: 遷移中も固定表示（フェードしない） */
+        ::view-transition-old(site-header),
+        ::view-transition-new(site-header) {
+            animation: none;
+        }
 
-/* ロゴ: スムーズに位置・サイズを補間 */
-::view-transition-group(site-logo) {
-    animation-duration: 0.3s;
-    animation-timing-function: ease;
-}
+        /* ロゴ: スムーズに位置・サイズを補間 */
+        ::view-transition-group(site-logo) {
+            animation-duration: 0.3s;
+            animation-timing-function: ease;
+        }
 
-/* メインコンテンツ: フェード + スライドアップで入れ替わる */
-::view-transition-old(main-content) {
-    animation: vt-fade-out 0.2s ease forwards;
-}
+        /* メインコンテンツ: フェード + スライドアップで入れ替わる */
+        ::view-transition-old(main-content) {
+            animation: vt-fade-out 0.2s ease forwards;
+        }
 
-::view-transition-new(main-content) {
-    animation: vt-slide-in 0.3s ease forwards;
-}
+        ::view-transition-new(main-content) {
+            animation: vt-slide-in 0.3s ease forwards;
+        }
 
-/* フッター: 軽いフェード */
-::view-transition-old(site-footer),
-::view-transition-new(site-footer) {
-    animation-duration: 0.2s;
-}
+        /* フッター: 軽いフェード */
+        ::view-transition-old(site-footer),
+        ::view-transition-new(site-footer) {
+            animation-duration: 0.2s;
+        }
 
-/* 4. アニメーション定義 */
-@keyframes vt-fade-out {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-8px); }
-}
+        /* 4. アニメーション定義 */
+        @keyframes vt-fade-out {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-@keyframes vt-slide-in {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+            to {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+        }
 
-/* 5. アクセシビリティ: 視差効果を減らす設定に従う */
-@media (prefers-reduced-motion: reduce) {
-    ::view-transition-group(*),
-    ::view-transition-old(*),
-    ::view-transition-new(*) {
-        animation-duration: 0s !important;
-    }
-}
-</style>
+        @keyframes vt-slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 5. アクセシビリティ: 視差効果を減らす設定に従う */
+        @media (prefers-reduced-motion: reduce) {
+
+            ::view-transition-group(*),
+            ::view-transition-old(*),
+            ::view-transition-new(*) {
+                animation-duration: 0s !important;
+            }
+        }
+    </style>
     <?php
 }
 add_action('wp_head', 'helixia_view_transitions_css', 5);

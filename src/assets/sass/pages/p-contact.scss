@@ -1,81 +1,286 @@
-@use '../settings/' as *;
-//* ===============================================
-//# お問い合わせ専用ページ
-//=============================================== *//
+@use "../settings/" as *;
 
-.p-contact-form__lists {
-    display: flex;
-    flex-direction: column;
-    gap: fluid(30, 40);
-    margin-bottom: fluid(40, 60);
-    max-width: rem(800);
-    margin-inline: auto;
-}
+.p-contact {
+  padding-top: fluid(7,67);
+  padding-bottom: fluid(20,50);
 
-.p-contact-form__list {
-    display: flex;
-    flex-direction: column;
-    gap: rem(10);
-    border: none;
-    padding: 0;
+  &__texts {
+    line-height: per-lh(40,16);
+  }
+
+  &__title {
+    font-family: var(--font-en);
+    font-size: fluid(78, 100);
+    line-height: 1;
+    letter-spacing: 0.03em; // 字間を広げて空気感を出す
     margin: 0;
-
-    @include mq(md) {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: rem(40);
-        padding-bottom: rem(30);
-        border-bottom: 1px solid var(--global-bg-darker);
-
-        &:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-    }
+    color: var(--text-main);
+  }
 }
 
-.p-contact-form__term {
+// Contact Form 7 Wrapper styles
+.p-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: fluid(60,10);
+  margin-top: fluid(32,40);
+
+  @include mq('lg') {
+    gap: rem(10);
+    flex-direction: row;
+    align-items: center;
+
+  }
+
+  &__main {
+    flex: 1;
+    width: 100%;
+    @include mq(lg) {
+      width: per(685,1132);
+      width: calc(100% - rem(447));
+    }
+  }
+
+  &__side {
+    width: 100%;
+    @include mq(lg) {
+      width: per(447,1132);
+      width: rem(447);
+      // position: sticky;
+      // top: rem(120);
+    }
+  }
+  &__privacy{
+    letter-spacing: 0;
+    @include mq('lg') {
+      width: per(295,447);
+      margin-inline: auto;
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: rem(10);
+    // width: fluid(320,675);
+    @include mq('lg'){
+      grid-template-columns: repeat(2,1fr);
+
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  border-radius: 8px;
+
+    &.--half {
+      width: 100%;
+    }
+
+    &.--full,
+    &:nth-child(7),
+    &:last-child {
+      grid-column: 1 / -1;
+    }
+    &:nth-child(7) > span .wpcf7-radio{
+      display: flex;
+      flex-direction: column;
+      gap: fluid(10,20);
+    }
+    @include mq('md') {
+      &:nth-child(7){
+        margin: 0;
+      }
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: rem(12);
+    left: rem(20);
+    z-index: 10;
+    font-size: rem(12); // 小さく繊細なラベル
+    font-weight: var(--bold);
+    color: var(--text-main);
+    pointer-events: none; // 入力欄をクリックできるように
     display: flex;
     align-items: center;
-    gap: rem(12);
+    gap: rem(4);
+  }
 
-    @include mq(md) {
-        width: 240px;
-        flex-shrink: 0;
-        padding-top: rem(10); // align with input field
-    }
-}
-
-.p-contact-form__term-text {
-    font-size: rem(16);
+  &__required {
+    color: var(--text-accent); // セージグリーンアクセント
     font-weight: var(--bold);
-}
+    font-size: rem(11);
+  }
 
-.p-contact-form__label {
-    font-size: rem(12);
-    font-weight: var(--bold);
-    padding: rem(2) rem(8);
-    border-radius: rem(4);
-    line-height: 1.4;
-
-    &.--required {
-        color: var(--global-white);
-        background-color:var(--bg-danger);
-    }
-
-    &.--optional {
-        color: var(--text-body);
-        background-color: var(--global-bg-gray);
-    }
-}
-
-.p-contact-form__desc {
+  // Input styles
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
     width: 100%;
+    padding: rem(34) rem(15) rem(10);
+    background-color: var(--global-white);
+    border: 1px solid #efefef;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: rem(15);
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    background-color: var(--bg-accent);
 
-    // Contact Form 7 Wrappers
-    .wpcf7-form-control-wrap {
-        display: block;
-        width: 100%;
+    &::placeholder {
+      color: #33333380;
+      font-size: rem(13);
+      line-height: per-lh(24,13);
+      padding-left: rem(4);
     }
+
+    &:focus {
+      outline: none;
+      border: 2px solid var(--border-sub);
+    }
+  }
+
+  textarea {
+    min-height: rem(280); // メッセージエリアを大きく
+    resize: vertical;
+  }
+
+  // Radio buttons (お問い合わせ種別)
+  .wpcf7-list-item {
+    margin-left: 0;
+    margin-right: rem(30);
+    font-size: rem(15);
+  }
+
+  // カスタムラジオボタン
+  input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: rem(18);
+    height: rem(18);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    vertical-align: sub;
+    margin-right: rem(8);
+    position: relative;
+    cursor: pointer;
+    background-color: var(--bg-accent);
+
+    &:checked {
+      background-color: var(--bg-sub);
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: rem(7);
+        height: rem(7);
+        background-color: var(--bg-accent);
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__privacy-text {
+    font-size: rem(13);
+    line-height: per-lh(24,13);
+  }
+  ul{
+    font-size: rem(13);
+    line-height: per-lh(24,13);
+    margin-top: rem(30);
+  }
+
+  &__acceptance {
+    margin-top: rem(30);
+    .wpcf7-list-item {
+      margin: 0;
+    }
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: rem(18);
+      height: rem(18);
+      background-color: var(--bg-accent);
+      border-radius: 4px;
+      vertical-align: sub;
+      // margin-right: rem(4);
+      cursor: pointer;
+      position: relative;
+
+      &:checked {
+        background-color: var(--bg-sub);
+        &::after {
+          content: "✔";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: var(--text-sub);
+          font-size: rem(10);
+        }
+      }
+    }
+    .wpcf7-list-item-label {
+      font-size: rem(13);
+      font-weight: var(--bold);
+    }
+  }
+
+  // Submit Button
+  &__submit {
+    display: flex;
+    margin-top: rem(30);
+    @include mq('lg') {
+      width: per(295,447);
+      margin-inline: auto;
+    }
+
+    input[type="submit"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width:fit-content;
+      padding: rem(6.5) rem(16);
+      background-color: transparent;
+      border: 1px solid var(--text-main);
+      border-radius: 999px;
+      font-family: var(--font-en);
+      font-size: rem(20);
+      font-weight: 300;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+
+      &:hover {
+        background-color: var(--bg-sub);
+        color: var(--text-sub);
+      }
+    }
+  }
 }
 
+
+
+// Error Message styling
+.wpcf7-not-valid-tip {
+  font-size: rem(12);
+  color: #e66;
+  margin-top: rem(4);
+}
+
+.wpcf7-response-output {
+  margin: rem(40) 0 0 0;
+  padding: rem(20) !important;
+  border-radius: rem(6);
+  font-size: rem(14);
+}

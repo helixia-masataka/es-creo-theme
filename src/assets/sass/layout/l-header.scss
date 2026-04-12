@@ -5,8 +5,13 @@
     top: 0;
     width: 100%;
     z-index: 100;
-    padding-block: rem(20);
-    
+    padding-block: fluid(20,26.5);
+    background-color: var(--bg-main);
+}
+
+.l-header__container{
+     padding-left: fluid(16px, 40px) !important;
+    padding-right: fluid(16px, 40px) !important;
 }
 
 .l-header__inner {
@@ -15,6 +20,7 @@
     justify-content: space-between;
     max-width: var(--container);
     margin: 0 auto;
+
 }
 
 .l-header__logo {
@@ -23,6 +29,11 @@
     visibility 0.8s ease;
     opacity: 1;
     visibility: visible;
+    z-index: 10000;
+    width: rem(100);
+    img{
+        width: 100%;
+    }
 }
 .l-header__nav {
     display: flex;
@@ -35,14 +46,23 @@
     margin: 0;
     padding: 0;
     display: flex;
-    gap: fluid(56,28);
+    gap: rem(52);
     align-items: center;
     flex-direction: column;
     position: relative;
-    @include mq(1280) {
-        align-items: flex-start;
-        flex-direction: row;
-        padding-inline: rem(20);
+    text-transform: uppercase;
+}
+.l-header__lists a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: rem(20);
+    font-weight: 200;
+    font-family: var(--font-en);
+    letter-spacing: 3%;
+    text-transform: uppercase;
+    &:hover {
+        font-weight: var(--bold);
+        color: var(--color-primary);
     }
 }
 .l-header__btns {
@@ -53,15 +73,3 @@
     width: rem(220);
 }
 
-.l-header__list a {
-    text-decoration: none;
-    color: var(--text-main);
-    font-size: rem(15);
-    line-height: normal;
-    letter-spacing: em(1.2,15);
-    text-transform: uppercase;
-    &:hover {
-        font-weight: var(--bold);
-        color: var(--color-primary);
-    }
-}

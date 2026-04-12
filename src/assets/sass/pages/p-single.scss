@@ -1,0 +1,177 @@
+@use "../settings/" as *;
+
+.p-single {
+  h1 {
+    font-weight: 350;
+    font-size: rem(16);
+    line-height: per-lh(40, 16);
+    letter-spacing: normal;
+    text-align: justify;
+  }
+  h2 {
+    font-weight: 350;
+    font-size: rem(15);
+    line-height: per-lh(32, 15);
+    letter-spacing: normal;
+    text-align: justify;
+  }
+  h3 {
+    font-weight: 350;
+    font-size: rem(14);
+    line-height: per-lh(24, 14);
+    letter-spacing: normal;
+    text-align: justify;
+  }
+  p{
+    a{
+      font-family: var(--font-en-sub);
+      color: var(--text-accent);
+      font-size: rem(20);
+      line-height: 1;
+      position: relative;
+      padding-right: rem(25);
+      &::after{
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: rem(21);
+        height: rem(21);
+        background-image: url(../img/icon-link.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+
+  .has-medium-font-size{
+    font-size: rem(13) !important ;
+    line-height: per-lh(24, 13);
+    letter-spacing: normal;
+  }
+  .has-large-font-size{
+    font-size: rem(24) !important ;
+    line-height: per-lh(32, 24);
+    letter-spacing: normal;
+  }
+  .has-x-large-font-size{
+    font-size: rem(32) !important ;
+    line-height: per-lh(48, 32);
+    letter-spacing: normal;
+  }
+  .wp-block-list li{
+    position: relative;
+    padding-left: rem(20);
+    &::before{
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: rem(13);
+      height: rem(13);
+      background-color: var(--text-main);
+    }
+  }
+}
+
+.p-single img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.p-single__title {
+}
+
+.p-single__article {
+  border: 0.5px solid var(--text-main);
+  border-radius: 8px;
+  padding: rem(20);
+}
+
+.p-single__header {
+}
+
+.p-single__meta {
+}
+
+.p-single__date {
+  display: block;
+  margin-top: rem(10);
+  font-size: rem(10);
+  line-height: 1;
+  letter-spacing: normal;
+}
+
+.p-single__content {
+  margin-top: rem(32);
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+}
+
+.p-single__nav {
+  margin-top: fluid(32,52);
+
+  @include mq(md) {
+    margin-top: rem(60);
+  }
+}
+
+.p-single__nav-inner {
+  display: flex;
+  justify-content: center;
+  gap: rem(20);
+
+  @include mq(md) {
+    gap: rem(82);
+  }
+}
+
+.p-single__nav-item {
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid var(--border-main);
+    border-radius: 9999px;
+    background-color: transparent;
+    text-decoration: none;
+    color: var(--text-main);
+    font-family: var(--font-en);
+    font-weight: 200;
+    letter-spacing: 0.03em;
+    transition: opacity 0.3s, background-color 0.3s;
+
+    width: rem(200);
+    height: rem(50);
+    font-size: rem(20);
+    gap: rem(10);
+
+    &:hover {
+      opacity: 0.7;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    img {
+      width: rem(20);
+      height: auto;
+
+      @include mq(md) {
+        width: rem(36);
+      }
+    }
+
+    span {
+      line-height: 1;
+      // Ysabeau SC is often slightly offset, ensuring center alignment
+      display: inline-block;
+      transform: translateY(-1px);
+    }
+  }
+}
+

@@ -1,84 +1,52 @@
 @use '../settings/' as *;
 
 .l-footer {
-    padding-top: rem(72);
-    padding-bottom: rem(16);
+    padding-top: fluid(30, 100);
+    padding-bottom: fluid(30, 67);
 }
 
 .l-footer__inner {
+    display: flex;
     justify-content: space-between;
     flex-direction: column;
+    align-items: flex-start;
+    gap: rem(32);
+    @include mq('md') {
+        flex-direction: row;
+        align-items: flex-end;
+    }
 }
 
 .l-footer__logo {
     text-align: center;
-    max-width: rem(300);
-}
+    width: rem(84);
+    display: block;
+    img{
+        width: 100%;
 
-.l-footer__lists {
-    gap: rem(24);
-    text-align: center;
-    flex-wrap: wrap;
-    display: flex;
-    justify-self: center;
-}
-
-.l-footer__list {
-    text-transform: uppercase;
-    font-weight: var(--bold);
-}
-.l-footer__list a {
-    &:hover {
-        opacity: 0.6;
     }
 }
 
-.l-footer__info {
-    margin-top: rem(80);
-    @include mq('lg') {
-        margin-top: 0;
-    }
-}
+
+
 
 .l-footer__wrap {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    gap: rem(20);
-    padding-bottom: rem(6);
+    align-items: flex-start;
+    flex-direction: column;
 }
 
-.l-footer__access {
-    margin-top: rem(32);
-    gap: rem(12);
-    @include mq('lg') {
-        flex-direction: column;
-    }
-}
-.l-footer__access dt,
-dd {
-    font-size: fluid(14, 15);
-    line-height: 1.8;
-    letter-spacing: em(1.2, 15);
-}
-.l-footer__access dt {
-    min-width: rem(64);
-    font-family: var(--bold);
-}
-.l-footer__access dd {
-    word-break: keep-all;
-    @include mq('lg') {
-        word-break: normal;
+.l-footer__text{
+    font-family: var(--font-en);
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: fluid(12,16);
+    span{
+        font-size: fluid(14,16);
     }
 }
 
-
-.l-footer__bottom {
-    text-align: center;
-    margin-top: rem(32);
-}
-
-.l-footer__copyright{
-    display: block;
-    margin-top: rem(16);
+.l-footer__text + .l-footer__text{
+    margin-top: rem(12);
 }

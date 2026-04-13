@@ -44,18 +44,18 @@ get_header();
                     <p class="p-home-works__empty">作品がまだ登録されていません。</p>
                 <?php endif; ?>
                 <?php wp_reset_postdata(); ?>
-
-                <!-- カテゴリチップ (固定表示) -->
-                <div class="p-home-categories">
-                    <ul class="p-home-categories__list">
-                        <li class="p-home-categories__item --active"><a href="#" data-cat="all">ALL</a></li>
-                        <li class="p-home-categories__item"><a href="#" data-cat="logo">LOGO</a></li>
-                        <li class="p-home-categories__item"><a href="#" data-cat="web">WEB</a></li>
-                        <li class="p-home-categories__item"><a href="#" data-cat="graphic">GRAPHIC</a></li>
-                        <li class="p-home-categories__item"><a href="#" data-cat="photo">PHOTO</a></li>
-                    </ul>
-                </div>
             </div>
+        </div>
+        
+        <!-- カテゴリチップ (固定表示) -->
+        <div class="p-home-categories">
+            <ul class="p-home-categories__list">
+                <li class="p-home-categories__item --active"><a href="#" data-cat="all">ALL</a></li>
+                <li class="p-home-categories__item"><a href="#" data-cat="logo">LOGO</a></li>
+                <li class="p-home-categories__item"><a href="#" data-cat="web">WEB</a></li>
+                <li class="p-home-categories__item"><a href="#" data-cat="graphic">GRAPHIC</a></li>
+                <li class="p-home-categories__item"><a href="#" data-cat="photo">PHOTO</a></li>
+            </ul>
         </div>
     </section>
 

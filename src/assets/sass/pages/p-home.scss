@@ -130,7 +130,8 @@
   bottom: 0;
   width: 100%;
   padding-bottom: rem(20);
-  z-index: 100;
+  z-index: 99999;
+  transform: translateZ(1px); // 3Dレイヤ描画で最前面を強制
   display: flex;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;

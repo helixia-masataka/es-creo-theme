@@ -1,12 +1,14 @@
 @use '../settings/' as *;
 
 .l-footer {
+    position: relative;
+    z-index: 1;
     padding-top: fluid(30, 100);
     padding-bottom: fluid(30, 67);
 }
 
 .home .l-footer{
-    margin-bottom: 107px;
+    margin-bottom: rem(60);
 }
 
 .l-footer__inner {

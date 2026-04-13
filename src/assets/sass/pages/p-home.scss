@@ -140,6 +140,7 @@
     var(--bg-main) 70%,
     transparent
   ); // 背景に馴染ませるグラデーション
+  isolation: isolate; // スタッキングコンテキストを分離して背面との予期せぬブレンドを防止
 
   &::-webkit-scrollbar {
     display: none;
@@ -160,7 +161,7 @@
   display: flex;
   flex-wrap: nowrap;
   flex-shrink: 0; // 収縮を防いで重なりを解消
-  gap: rem(12) rem(16);
+  gap: rem(10);
   padding: 0 rem(20);
   margin: 0 auto;
   list-style: none;
@@ -180,14 +181,17 @@
     justify-content: center;
     padding: rem(2.5) rem(16);
     border-radius: rem(100);
-    border: 1px solid #8da697;
+    border: 1px solid var(--border-main);
     font-family: var(--font-en);
     font-size: rem(20);
     font-weight: 200;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.03em;
     color: var(--text-main);
     transition: all 0.3s ease;
     background-color: var(--bg-main);
+    position: relative;
+    z-index: 10; // 前面に配置
+    opacity: 1 !important; // 透過を確実に防止
   }
 
   &.--active a,

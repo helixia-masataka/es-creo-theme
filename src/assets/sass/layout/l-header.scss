@@ -65,6 +65,9 @@
         color: var(--color-primary);
     }
 }
+.l-header__lists a img{
+    width: rem(24);
+}
 .l-header__btns {
     display: flex;
     gap: rem(20);

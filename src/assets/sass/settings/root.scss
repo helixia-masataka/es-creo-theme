@@ -84,45 +84,45 @@
   --header-height: 93;
 }
 
-/* =========================================
-   ④ ダークモード
-   OS設定に連動して自動切り替え。
-   ②デザイン構成色だけを上書きするため､
-   HTML/Sassの変更は一切不要。
-   ========================================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    // ダークモード用グローバルカラー
-    --global-dark-bg: #1a1a2e;
-    --global-dark-surface: #252540;
-    --global-dark-section: #2a2a45;
-    --global-dark-border: #3a3a55;
-    --global-dark-text: #e8e8ec;
-    --global-dark-text-sub: #a0a0b0;
+// /* =========================================
+//    ④ ダークモード
+//    OS設定に連動して自動切り替え。
+//    ②デザイン構成色だけを上書きするため､
+//    HTML/Sassの変更は一切不要。
+//    ========================================= */
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     // ダークモード用グローバルカラー
+//     --global-dark-bg: #1a1a2e;
+//     --global-dark-surface: #252540;
+//     --global-dark-section: #2a2a45;
+//     --global-dark-border: #3a3a55;
+//     --global-dark-text: #e8e8ec;
+//     --global-dark-text-sub: #a0a0b0;
 
-    // ②デザイン構成色の上書き
-    --color-primary: var(--global-main-light);
-    --color-secondary: var(--global-main-lighter);
+//     // ②デザイン構成色の上書き
+//     --color-primary: var(--global-main-light);
+//     --color-secondary: var(--global-main-lighter);
 
-    // 背景色
-    --bg-main: var(--global-dark-bg);
-    --bg-cta: var(--global-main-dark);
-    --bg-surface: var(--global-dark-surface);
-    --bg-section: var(--global-dark-section);
+//     // 背景色
+//     --bg-main: var(--global-dark-bg);
+//     --bg-cta: var(--global-main-dark);
+//     --bg-surface: var(--global-dark-surface);
+//     --bg-section: var(--global-dark-section);
 
-    // 文字色
-    --text-main: var(--global-dark-text);
-    --text-sub: var(--global-dark-text-sub);
-    --text-link: var(--global-main-light);
-    --text-cta: var(--global-white);
+//     // 文字色
+//     --text-main: var(--global-dark-text);
+//     --text-sub: var(--global-dark-text-sub);
+//     --text-link: var(--global-main-light);
+//     --text-cta: var(--global-white);
 
-    // その他
-    --color-base: var(--global-dark-surface);
-    --border-light: var(--global-dark-border);
-    --bg-grad-mv: linear-gradient(
-      180deg,
-      rgba(26, 26, 46, 0.7) 0%,
-      rgba(37, 37, 64, 0.4) 100%
-    );
-  }
-}
+//     // その他
+//     --color-base: var(--global-dark-surface);
+//     --border-light: var(--global-dark-border);
+//     --bg-grad-mv: linear-gradient(
+//       180deg,
+//       rgba(26, 26, 46, 0.7) 0%,
+//       rgba(37, 37, 64, 0.4) 100%
+//     );
+//   }
+// }

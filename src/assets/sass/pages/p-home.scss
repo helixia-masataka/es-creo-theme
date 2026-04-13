@@ -67,7 +67,7 @@
     width: 100%;
     height: 100%;
     color: var(--text-sub); // 白文字
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     @include mq("md") {
       text-shadow: unset;
     }
@@ -90,7 +90,7 @@
     font-weight: var(--medium);
     color: var(--global-white); // 白文字
     flex-shrink: 0;
-    padding-right: rem(16);
+    // padding-right: rem(16);
   }
 
   // Hover effect
@@ -118,7 +118,7 @@
       padding: rem(10);
     }
     .p-work-card__title {
-      //  font-size: rem(12);
+       font-size: rem(13);
     }
   }
 }

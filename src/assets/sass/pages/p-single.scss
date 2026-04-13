@@ -45,6 +45,11 @@
       }
     }
   }
+  .has-small-font-size{
+    font-size: rem(12) !important ;
+    line-height: per-lh(24, 12);
+    letter-spacing: normal;
+  }
 
   .has-medium-font-size{
     font-size: rem(13) !important ;
@@ -52,18 +57,20 @@
     letter-spacing: normal;
   }
   .has-large-font-size{
-    font-size: rem(24) !important ;
+    font-size: rem(14) !important ;
     line-height: per-lh(32, 24);
     letter-spacing: normal;
   }
   .has-x-large-font-size{
-    font-size: rem(32) !important ;
+    font-size: rem(15) !important ;
     line-height: per-lh(48, 32);
     letter-spacing: normal;
   }
   .wp-block-list li{
     position: relative;
     padding-left: rem(20);
+    font-size: rem(13);
+    line-height: per-lh(24, 13);
     &::before{
       content: "";
       position: absolute;
@@ -116,27 +123,18 @@
 
 .p-single__nav {
   margin-top: fluid(32,52);
-
-  @include mq(md) {
-    margin-top: rem(60);
-  }
 }
 
 .p-single__nav-inner {
   display: flex;
   justify-content: center;
-  gap: rem(20);
-
-  @include mq(md) {
-    gap: rem(82);
-  }
+  gap: rem(52);
 }
 
 .p-single__nav-item {
   a {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     border: 0.5px solid var(--border-main);
     border-radius: 9999px;
     background-color: transparent;
@@ -146,11 +144,10 @@
     font-weight: 200;
     letter-spacing: 0.03em;
     transition: opacity 0.3s, background-color 0.3s;
-
-    width: rem(200);
-    height: rem(50);
+    height: rem(27);
     font-size: rem(20);
-    gap: rem(10);
+    gap: rem(11);
+    padding: 0 rem(16);
 
     &:hover {
       opacity: 0.7;
@@ -158,19 +155,15 @@
     }
 
     img {
-      width: rem(20);
+      width: rem(21);
       height: auto;
 
-      @include mq(md) {
-        width: rem(36);
-      }
     }
 
     span {
       line-height: 1;
-      // Ysabeau SC is often slightly offset, ensuring center alignment
       display: inline-block;
-      transform: translateY(-1px);
+      // transform: translateY(-1px);
     }
   }
 }

@@ -11,7 +11,7 @@ get_header();
         <div class="p-static__inner">
             <div class="p-static__content">
                 <div class="l-container-m">
-                    <h1 class="p-static__title">privacy policy</h1>
+                    <h1 class="p-static__title c-heading --h2">privacy policy</h1>
                     <div class="p-static__message">
                         <p>_____es.（以下､「当社」といいます。）は､本ウェブサイト上で提供するサービス（以下､「本サービス」といいます。）における､ユーザーの個人情報の取扱いについて､以下のとおりプライバシーポリシー（以下､「本ポリシー」といいます。）を定めます。
                         </p>

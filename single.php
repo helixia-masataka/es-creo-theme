@@ -32,7 +32,7 @@ get_header();
                                 if ($next_post): ?>
                                     <a href="<?php echo esc_url(get_permalink($next_post->ID)); ?>">
                                         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-left-hand.svg" alt="" width="24" height="24">
-                                        <span>NEWER</span>
+                                        <span>newer</span>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -41,7 +41,7 @@ get_header();
                                 $prev_post = get_previous_post();
                                 if ($prev_post): ?>
                                     <a href="<?php echo esc_url(get_permalink($prev_post->ID)); ?>">
-                                        <span>OLDER</span>
+                                        <span>older</span>
                                         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-right-hand.svg" alt="" width="24" height="24">
                                     </a>
                                 <?php endif; ?>

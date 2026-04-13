@@ -48,7 +48,9 @@
                             <li><a href="<?php echo esc_url('https://www.instagram.com/_____es.d'); ?>" target="_blank"
                                     rel="noopener noreferrer"><img
                                         src="<?php echo esc_url(get_theme_file_uri('/img/icon-instagram.svg')); ?>"
-                                        alt="Instagram"></a></li>
+                                        alt="Instagram"></a>
+                            </li>
+                            <li><a href="<?php echo esc_url(home_url('/privacy/')); ?>">privacy</a></li>
                         </ul>
                     </nav>
                 <?php endif; ?>

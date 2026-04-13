@@ -2,7 +2,7 @@
 
 .l-footer {
     position: relative;
-    z-index: 1;
+    z-index: -1; // ユーザー指摘に基づき、-1に設定
     padding-top: fluid(30, 100);
     padding-bottom: fluid(30, 67);
 }

@@ -28,6 +28,11 @@ body {
   }
 }
 
+#page-container {
+  position: relative;
+  z-index: 1; // ユーザー指摘に基づき、100未満に設定
+}
+
 body::-webkit-scrollbar {
   display: none;
 }

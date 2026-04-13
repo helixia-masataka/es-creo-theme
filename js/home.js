@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 2. フェードアウトとAjax通信
             worksGrid.style.transition = 'opacity 0.3s ease';
-            worksGrid.style.opacity = '0.4'; // 読み込み中の演出
+            worksGrid.style.opacity = '1'; // 読み込み中の演出
 
             const formData = new FormData();
             formData.append('action', 'helixia_filter_works');

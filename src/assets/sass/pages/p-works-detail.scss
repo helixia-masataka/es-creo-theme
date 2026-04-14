@@ -3,48 +3,62 @@
 .p-works-detail {
   background-color: var(--bg-main);
   min-height: 100vh;
-  padding-top: rem(120); // Header allowance
-  padding-bottom: rem(100);
+  padding-top: fluid(10,67); // Header allowance
+  padding-bottom: fluid(52,100);
 
   &__inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: rem(40);
+    display: flex;
     align-items: start;
+    flex-direction: column;
+    max-width: fluid(320,1280);
+    margin-inline: auto;
+    gap: fluid(32,80);
+    @include mq('md'){
+      flex-direction: row;
 
-    @include mq(lg) {
-      grid-template-columns: rem(680) 1fr;
-      gap: rem(60);
     }
+
   }
 
   /* 左側：画像エリア */
   &__left {
     width: 100%;
+    @include mq('md'){
+      max-width: fluid(320,800);
+
+    }
   }
 
   &__images {
     display: flex;
     flex-direction: column;
-    gap: rem(40);
+    gap: fluid(10,32);
   }
 
   &__image-item {
-    margin: 0;
+    margin-inline: auto;
     img {
       width: 100%;
       height: auto;
       display: block;
       object-fit: cover;
     }
+
+    &.is-higher {
+      max-width: rem(500); // 縦長画像の場合は幅を制限
+    }
   }
 
   /* 右側：テキストエリア */
   &__right {
     position: relative;
-    @include mq(lg) {
+    width: 100%;
+    // margin: rem(32) auto 0 ;
+    @include mq(md) {
+      max-width: fluid(320,400);
       position: sticky;
       top: rem(140);
+      // margin: 0 auto;
     }
   }
 
@@ -52,6 +66,11 @@
     display: flex;
     flex-direction: column;
     gap: rem(40);
+    width: 100%;
+    @include mq('md'){
+      margin-inline: auto;
+    }
+
   }
 
   &__title {
@@ -68,16 +87,19 @@
   }
 
   &__text {
-    font-size: rem(14);
-    line-height: 2;
+    font-size: rem(13);
+    line-height:per-lh(24,14);
     color: var(--text-main);
     font-weight: var(--medium);
+    letter-spacing: normal;
   }
 
   &__info {
     margin: 0;
     font-size: rem(13);
-    line-height: 1.8;
+    font-weight: 300;
+    line-height:per-lh(24,13);
+    letter-spacing: normal;
     text-transform: uppercase;
     color: var(--text-main);
   }
@@ -127,7 +149,3 @@
   }
 }
 
-
-.p-works-detail__image-item{
-  max-width: 800px;
-}

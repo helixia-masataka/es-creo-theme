@@ -30,8 +30,11 @@ get_header();
                     <div class="p-works-detail__left">
                         <?php if (!empty($works_images) && is_array($works_images)): ?>
                             <div class="p-works-detail__images">
-                                <?php foreach ($works_images as $image_id): ?>
-                                    <figure class="p-works-detail__image-item">
+                                <?php foreach ($works_images as $image_id):
+                                    $img_data = wp_get_attachment_image_src($image_id, 'full');
+                                    $higher_class = ($img_data && $img_data[2] > $img_data[1]) ? ' is-higher' : '';
+                                    ?>
+                                    <figure class="p-works-detail__image-item<?php echo esc_attr($higher_class); ?>">
                                         <?php echo wp_get_attachment_image($image_id, 'full'); ?>
                                     </figure>
                                 <?php endforeach; ?>
@@ -39,7 +42,12 @@ get_header();
                         <?php else: ?>
                             <?php /* 画像がない場合はアイキャッチを表示 */ ?>
                             <div class="p-works-detail__images">
-                                <figure class="p-works-detail__image-item">
+                                <?php
+                                $thumb_id = get_post_thumbnail_id();
+                                $img_data = wp_get_attachment_image_src($thumb_id, 'full');
+                                $higher_class = ($img_data && $img_data[2] > $img_data[1]) ? ' is-higher' : '';
+                                ?>
+                                <figure class="p-works-detail__image-item<?php echo esc_attr($higher_class); ?>">
                                     <?php if (has_post_thumbnail()): ?>
                                         <?php the_post_thumbnail('full'); ?>
                                     <?php else: ?>

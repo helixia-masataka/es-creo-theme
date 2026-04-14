@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // ESCキーやフォーカストラップを監視
         document.addEventListener('keydown', handleKeydown);
 
-        // 最初にフォーカスする要素を先頭に (少し遅延させるとフォーカス移動が安定します)
+        // ドロワーコンテナ自体にフォーカスを当てる（最初のリンクに枠線が出るのを防ぐため）
         setTimeout(() => {
-            const focusableEls = drawer.querySelectorAll(focusableSelector);
-            if (focusableEls.length > 0) {
-                focusableEls[0].focus();
+            if (!drawer.hasAttribute('tabindex')) {
+                drawer.setAttribute('tabindex', '-1');
             }
+            drawer.focus();
         }, 10);
     }
 

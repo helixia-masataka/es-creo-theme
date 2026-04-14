@@ -64,6 +64,10 @@ button {
   }
 }
 
+.c-drawer:focus {
+  outline: none !important;
+}
+
 h1,
 h2,
 h3,

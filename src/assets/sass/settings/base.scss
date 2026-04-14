@@ -46,14 +46,22 @@ main {
 a {
   text-decoration: none;
   &:focus {
+    outline: none;
+  }
+  &:focus-visible {
     outline: 1px solid var(--border-sub);
     outline-offset: 2px;
   }
 }
 
-button:focus {
-  outline: 1px solid var(--border-sub);
-  outline-offset: 2px;
+button {
+  &:focus {
+    outline: none;
+  }
+  &:focus-visible {
+    outline: 1px solid var(--border-sub);
+    outline-offset: 2px;
+  }
 }
 
 h1,

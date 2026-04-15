@@ -133,6 +133,7 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   border-radius: 999px;
+  height: 47px;
   background: linear-gradient(
     to top,
     var(--bg-main) 70%,
@@ -148,9 +149,7 @@
     // position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
     padding-bottom: 0;
-    width: fit-content;
   }
 }
 

@@ -132,8 +132,7 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  border-radius: 999px;
-  height: 47px;
+  height: rem(47);
   background: linear-gradient(
     to top,
     var(--bg-main) 70%,

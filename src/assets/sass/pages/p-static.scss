@@ -51,7 +51,7 @@
 
   ol,
   ul {
-    margin-bottom: rem(20);
+    // margin-bottom: rem(20);
 
     li {
       font-size: rem(13);
@@ -107,7 +107,7 @@
     &:not(.page-template-page-privacy) {
       min-height: calc(100vh - (var(--header-height) * 1px));
       display: flex;
-      align-items: center;
+      // align-items: center;
     }
   }
   .p-static__inner {
@@ -121,12 +121,12 @@
   .p-static__content {
     display: flex;
     flex-direction: column;
-    gap: rem(40);
+    gap: rem(12);
   }
 
   .p-static__title {
     font-family: var(--font-en);
-    font-size: fluid(64, 100);
+    font-size: fluid(64, 84);
     line-height: 1;
     font-weight: var(--medium);
     color: var(--text-main);
@@ -168,7 +168,6 @@
     ol {
       display: flex;
       flex-direction: column;
-      margin-top: rem(20);
 
       li {
         font-size: rem(13);
@@ -176,6 +175,9 @@
         color: var(--text-main);
          padding-left: 1em;   // 左側に余白を作る
         text-indent: -1em;
+        ol{
+          margin: rem(16) 0;
+        }
       }
 
       // 箇条書き（ul）の独自スタイル
@@ -185,6 +187,8 @@
           position: relative;
         }
       }
+      &.flex-c{
+      gap: rem(16);
     }
 
     // 階層がある場合
@@ -192,7 +196,9 @@
     ol ol,
     ul ol,
     ol ul {
-      margin-top: rem(10);
+      margin-top: rem(16);
+      margin-top: rem(16);
+    }
     }
   }
 
@@ -202,13 +208,26 @@
   }
 
 .p-static__address {
+
   margin-top: rem(30);
 
   p {
     line-height: per-lh(24, 13);
     margin: 0;
   }
+  span{
+      display: inline-block;
+      width:100%;
+      @include mq('md'){
+        width: auto;
+        margin-right: rem(5);
+      }
+  }
 }
 
 
+}
+
+.page-thanks .p-static__message p{
+  line-height: per-lh(40,16);
 }

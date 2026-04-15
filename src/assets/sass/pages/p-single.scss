@@ -1,6 +1,6 @@
 @use "../settings/" as *;
 
-.p-single {
+.p-single,.p-news-archive__item {
   h1 {
     font-weight: 350;
     font-size: rem(16);

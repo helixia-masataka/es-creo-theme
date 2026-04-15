@@ -36,7 +36,7 @@
   }
 
   &__image-item {
-    margin-inline: auto;
+    margin-right: auto;
     img {
       width: 100%;
       height: auto;
@@ -45,7 +45,8 @@
     }
 
     &.is-higher {
-      max-width: rem(500); // 縦長画像の場合は幅を制限
+      max-width: fluid(320,500);
+
     }
   }
 
@@ -65,7 +66,7 @@
   &__content-wrapper {
     display: flex;
     flex-direction: column;
-    gap: rem(40);
+    gap: fluid(32,40);
     width: 100%;
     @include mq('md'){
       margin-inline: auto;
@@ -126,7 +127,7 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5em;
+      gap: rem(4);
       transition: opacity 0.3s;
 
       &:hover {
@@ -135,17 +136,17 @@
     }
 
     &-icon {
-      width: rem(16);
-      height: rem(16);
+      width: rem(21);
+      height: rem(21);
       display: inline-block;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234e8200' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+      background-image: url("../img/icon-link.svg");
       background-size: contain;
       background-repeat: no-repeat;
     }
   }
 
   &__back {
-    margin-top: rem(20);
+    margin-top: fluid(0,20);
   }
 }
 

@@ -241,7 +241,7 @@ get_header();
                                     <?php while ($news_query->have_posts()):
                                         $news_query->the_post(); ?>
                                         <li class="p-about-news__list">
-                                            <a href="<?php the_permalink(); ?>">
+                                            <a href="<?php echo esc_url(home_url('/news/#news-' . get_the_ID())); ?>">
                                                 <time
                                                     datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date('Y.m.d'); ?></time>
                                                 <h3 class="p-about-news__title"><?php the_title(); ?></h3>
@@ -289,14 +289,16 @@ get_header();
     </section>
 
     <!-- CONTACT Section -->
-    <section class="p-about__section p-about-contact">
+    <section class="p-about-contact">
         <div class="l-container">
             <div class="l-container-l">
                 <div class="p-about-contact__btn">
                     <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="p-about-contact__link">
-                        <img src="<?php echo get_theme_file_uri('/img/icon-right-hand.svg'); ?>" alt="">
+                        <img class="p-about-contact__icon --black" src="<?php echo get_theme_file_uri('/img/icon-right-hand-black.webp'); ?>" alt="">
+                        <img class="p-about-contact__icon --white" src="<?php echo get_theme_file_uri('/img/icon-right-hand-white.webp'); ?>" alt="">
                         <span>contact</span>
-                        <img src="<?php echo get_theme_file_uri('/img/icon-left-hand.svg'); ?>" alt="">
+                        <img class="p-about-contact__icon --black" src="<?php echo get_theme_file_uri('/img/icon-left-hand-black.webp'); ?>" alt="">
+                        <img class="p-about-contact__icon --white" src="<?php echo get_theme_file_uri('/img/icon-left-hand-white.webp'); ?>" alt="">
                     </a>
                 </div>
             </div>

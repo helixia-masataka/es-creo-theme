@@ -8,6 +8,7 @@
 
 html {
   font-size: math.div($root-font-size, 16px) * 100%;
+  scroll-padding-top: calc(var(--header-height) * 1px + 20px);
 }
 
 body {

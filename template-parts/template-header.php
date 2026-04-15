@@ -43,7 +43,7 @@
                             ?>
                             <li><a href="<?php echo $top_link; ?>">top</a></li>
                             <li><a href="<?php echo esc_url(home_url('/about/')); ?>">about</a></li>
-                            <li><a href="<?php echo esc_url(home_url('/about/#news')); ?>">news</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/news/')); ?>">news</a></li>
                             <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">contact</a></li>
                             <li><a href="<?php echo esc_url('https://www.instagram.com/_____es.d'); ?>" target="_blank"
                                     rel="noopener noreferrer"><img

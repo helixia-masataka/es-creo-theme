@@ -1,11 +1,12 @@
 @use "../settings/" as *;
 
 .p-contact {
-  padding-top: fluid(7,67);
-  padding-bottom: fluid(20,50);
+  padding-top: fluid(7, 67);
+  padding-bottom: fluid(20, 50);
 
   &__texts {
-    line-height: per-lh(40,16);
+    line-height: per-lh(40, 16);
+    letter-spacing: normal;
   }
 
   &__title {
@@ -22,21 +23,19 @@
 .p-contact-form {
   display: flex;
   flex-direction: column;
-  gap: fluid(60,10);
-  margin-top: fluid(32,40);
+  gap: fluid(60, 10);
 
-  @include mq('lg') {
+  @include mq("lg") {
     gap: rem(10);
     flex-direction: row;
     align-items: center;
-
   }
 
   &__main {
     flex: 1;
     width: 100%;
     @include mq(lg) {
-      width: per(685,1132);
+      width: per(685, 1132);
       width: calc(100% - rem(447));
     }
   }
@@ -44,36 +43,37 @@
   &__side {
     width: 100%;
     @include mq(lg) {
-      width: per(447,1132);
+      width: per(447, 1132);
       width: rem(447);
       // position: sticky;
       // top: rem(120);
     }
   }
-  &__privacy{
+  &__privacy {
     letter-spacing: 0;
-    @include mq('lg') {
-      width: per(295,447);
+    @include mq("lg") {
+      width: per(295, 447);
       margin-inline: auto;
     }
   }
 
   &__items {
     display: grid;
-    grid-template-columns: repeat(1,1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: rem(10);
-    // width: fluid(320,675);
-    @include mq('lg'){
-      grid-template-columns: repeat(2,1fr);
-
-    }
+    margin-top: fluid(32, 40);
   }
 
   &__item {
     display: flex;
     flex-direction: column;
     position: relative;
-  border-radius: 8px;
+    border-radius: 8px;
+      @include mq("md") {
+      &:nth-child(7) {
+        margin: 0;
+      }
+    }
 
     &.--half {
       width: 100%;
@@ -84,16 +84,28 @@
     &:last-child {
       grid-column: 1 / -1;
     }
-    &:nth-child(7) > span .wpcf7-radio{
+    &:nth-child(7) > span {
+      width: fit-content;
+      display: inline-block;
+      margin: rem(10) 0;
+    }
+    &:nth-child(7) > span .wpcf7-radio {
       display: flex;
       flex-direction: column;
-      gap: fluid(10,20);
-    }
-    @include mq('md') {
-      &:nth-child(7){
-        margin: 0;
+      gap: fluid(10, 20);
+      width: fit-content;
+      display: inline-flex;
+      @include mq("lg") {
+        display: inline-block;
       }
     }
+    &:nth-child(7) > span .wpcf7-radio span:last-child{
+      @include mq('lg'){
+        margin-top: rem(10);
+
+      }
+    }
+
   }
 
   &__label {
@@ -135,7 +147,7 @@
     &::placeholder {
       color: #33333380;
       font-size: rem(13);
-      line-height: per-lh(24,13);
+      line-height: per-lh(24, 13);
       padding-left: rem(4);
     }
 
@@ -153,8 +165,9 @@
   // Radio buttons (お問い合わせ種別)
   .wpcf7-list-item {
     margin-left: 0;
-    margin-right: rem(30);
-    font-size: rem(15);
+    margin-right: rem(20);
+    font-size: rem(13);
+    display: inline-flex;
   }
 
   // カスタムラジオボタン
@@ -166,7 +179,6 @@
     border: 1px solid #ccc;
     border-radius: 50%;
     vertical-align: sub;
-    margin-right: rem(8);
     position: relative;
     cursor: pointer;
     background-color: var(--bg-accent);
@@ -190,11 +202,11 @@
 
   &__privacy-text {
     font-size: rem(13);
-    line-height: per-lh(24,13);
+    line-height: per-lh(24, 13);
   }
-  ul{
+  ul {
     font-size: rem(13);
-    line-height: per-lh(24,13);
+    line-height: per-lh(24, 13);
     margin-top: rem(30);
   }
 
@@ -238,8 +250,8 @@
   &__submit {
     display: flex;
     margin-top: rem(30);
-    @include mq('lg') {
-      width: per(295,447);
+    @include mq("lg") {
+      width: per(295, 447);
       margin-inline: auto;
     }
 
@@ -247,7 +259,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width:fit-content;
+      width: fit-content;
       padding: rem(6.5) rem(16);
       background-color: transparent;
       border: 1px solid var(--text-main);
@@ -268,8 +280,6 @@
     }
   }
 }
-
-
 
 // Error Message styling
 .wpcf7-not-valid-tip {

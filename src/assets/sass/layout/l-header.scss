@@ -52,17 +52,22 @@
     position: relative;
     text-transform: uppercase;
 }
+
+.l-header__lists li:last-child a{
+    font-size: rem(18);
+}
+
 .l-header__lists a {
     text-decoration: none;
     color: var(--text-main);
     font-size: rem(20);
     font-weight: 200;
     font-family: var(--font-en);
-    letter-spacing: 3%;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     &:hover {
         font-weight: var(--bold);
-        color: var(--color-primary);
+        color: var(--text-accent);
     }
 }
 .l-header__lists a img{

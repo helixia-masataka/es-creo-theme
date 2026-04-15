@@ -240,3 +240,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 //=============================================== *//
+
+//* ===============================================
+//# ページ読み込み時のハッシュスクロール
+document.addEventListener('DOMContentLoaded', function () {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const targetElement = document.querySelector(hash);
+    if (!targetElement) return;
+
+    // ページ描画完了後にスクロール
+    setTimeout(function () {
+        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 93;
+        const rectTop = targetElement.getBoundingClientRect().top;
+        const offset = window.pageYOffset;
+        const scrollTarget = rectTop + offset - headerHeight - 20;
+        window.scrollTo({
+            top: scrollTarget,
+            behavior: 'smooth',
+        });
+    }, 300);
+});
+//=============================================== *//

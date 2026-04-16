@@ -1,0 +1,20 @@
+@use '../settings/' as *;
+//* ===============================================
+//# 共通コンテナー（下記編集禁止）
+//=============================================== *//
+.l-container {
+    @include content-width;
+}
+.l-container-l {
+    @include content-width-large;
+}
+.l-container-m{
+    @include content-width-medium;
+}
+.l-container-s {
+    @include content-width-small;
+}
+.l-container-cq{
+    container-type: inline-size;//コンテナクエリの基準（親）にするクラス
+}
+

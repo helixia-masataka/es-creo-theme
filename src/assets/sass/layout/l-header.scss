@@ -1,0 +1,83 @@
+@use '../settings/' as *;
+
+.l-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding-block: fluid(20,26.5);
+    background-color: var(--bg-main);
+}
+
+.l-header__container{
+     padding-left: fluid(16px, 40px) !important;
+    padding-right: fluid(16px, 40px) !important;
+}
+
+.l-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container);
+    margin: 0 auto;
+
+}
+
+.l-header__logo {
+    transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+    opacity: 1;
+    visibility: visible;
+    z-index: 10000;
+    width: rem(100);
+    img{
+        width: 100%;
+    }
+}
+.l-header__nav {
+    display: flex;
+    // background-color: var(--color-base);
+    border-radius: 48px;
+    gap: rem(32);
+}
+.l-header__lists {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: rem(52);
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.l-header__lists li:last-child a{
+    font-size: rem(18);
+}
+
+.l-header__lists a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: rem(20);
+    font-weight: 200;
+    font-family: var(--font-en);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    &:hover {
+        font-weight: var(--bold);
+        color: var(--text-accent);
+    }
+}
+.l-header__lists a img{
+    width: rem(24);
+}
+.l-header__btns {
+    display: flex;
+    gap: rem(20);
+    flex-direction: column;
+    align-items: flex-start;
+    width: rem(220);
+}
+

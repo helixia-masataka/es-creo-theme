@@ -1,0 +1,577 @@
+@use "../settings/" as *;
+
+//* ===============================================
+//# Aboutページ
+//=============================================== *//
+
+.p-about {
+  display: flex;
+  flex-direction: column;
+  gap: fluid(20, 50);
+}
+
+.p-about__section {
+  margin-top: fluid(24, 64);
+  @include mq("lg") {
+    &:last-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.p-about__content {
+  // margin-top: rem(36);
+}
+
+// 共通インナーレイアウト（左にタイトル､右にコンテンツ）
+@mixin about-layout() {
+  display: flex;
+  flex-direction: column;
+  // gap: rem(40);
+
+  @include mq(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    // gap: fluid(40, 80);
+  }
+}
+
+//* ===============================================
+//# Designセクション
+//=============================================== *//
+.p-about-design__inner {
+  @include about-layout();
+}
+
+.p-about-design__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: rem(10);
+
+  @include mq(960) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.p-about-design__img {
+  position: relative;
+  width: 100%;
+  max-width: fluid(320, 561);
+  height: 100%;
+  margin-inline: auto;
+  img {
+    max-width: fluid(320, 410);
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: rem(8);
+    display: block;
+    margin-inline: auto;
+  }
+  @include mq(960) {
+    // width: per(561, 1132);
+
+    img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: calc(100% - rem(413));
+      margin-inline: unset;
+    }
+  }
+}
+
+.p-about-design__texts {
+  font-size: rem(16);
+  letter-spacing: normal;
+  line-height: per-lh(30, 16);
+  @include mq("lg") {
+    width: fluid(320, 561);
+  }
+}
+
+.p-about__br {
+  display: inline-block;
+}
+
+.p-about-design__heading {
+  font-size: fluid(24, 32);
+  line-height: 1.625;
+  span {
+    display: inline-block;
+  }
+}
+
+.p-about-design__lists {
+  margin-top: rem(40);
+}
+
+.p-about-design__list {
+  &:not(:first-child) {
+    margin-top: rem(36);
+  }
+  p {
+    line-height: 2.25;
+  }
+}
+
+//* ===============================================
+//# PROFILEセクション
+//=============================================== *//
+.p-about-profile__inner {
+  @include about-layout();
+}
+
+.p-about-profile__heading {
+  position: relative;
+  @include mq("lg") {
+    width: per(561, 1132);
+  }
+}
+
+.p-about-profile__title {
+  @include mq(md) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    // right: calc(100% - rem(421));
+  }
+}
+
+.p-about-profile__content {
+  @include mq(md) {
+    width: per(561, 1132);
+  }
+}
+
+// Slider / Grid 共通
+.p-about-profile__list {
+  width: 100%;
+  &.swiper {
+    overflow: hidden;
+  }
+}
+
+// スライダーコントロール（ドットと矢印）
+.p-about-profile__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: rem(24);
+  margin-top: rem(32);
+  width: 100%;
+
+  @include mq("md") {
+    margin-top: rem(40);
+  }
+}
+
+// ページネーション（ドット）
+.swiper-pagination {
+  position: static !important;
+  width: auto !important;
+  display: flex;
+  gap: rem(8);
+
+  .swiper-pagination-bullet {
+    margin: 0 !important;
+    width: rem(8);
+    height: rem(8);
+    background: var(--text-main);
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+}
+
+// ナビゲーション（矢印）
+.swiper-button-prev,
+.swiper-button-next {
+  position: static !important;
+  margin: 0 !important;
+  width: rem(32);
+  height: rem(32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &::after {
+    content: "" !important;
+    display: block;
+    width: rem(10);
+    height: rem(10);
+    border-top: 1px solid var(--text-main);
+    border-right: 1px solid var(--text-main);
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0.1;
+    cursor: default;
+  }
+}
+
+.swiper-button-prev {
+  &::after {
+    transform: rotate(-135deg);
+    margin-left: rem(4);
+  }
+}
+
+.swiper-button-next {
+  &::after {
+    transform: rotate(45deg);
+    margin-right: rem(4);
+  }
+}
+
+.p-about-profile__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: rem(32);
+
+  @include mq(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.--single {
+    @include mq(md) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// 各アイテム
+.p-about-profile__item {
+  display: flex;
+  flex-direction: column;
+  gap: rem(12);
+}
+
+.p-about-profile__thumb {
+  width: 100%;
+  aspect-ratio: 1.5 / 1;
+  background-color: #eee;
+  border-radius: 24px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.p-about-profile__info {
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0;
+}
+
+.p-about-profile__name {
+  font-size: rem(16);
+  line-height: per-lh(40, 16);
+  font-weight: var(--medium);
+}
+.p-about-profile__role {
+  font-size: rem(12);
+  line-height: per-lh(18, 12);
+  letter-spacing: 0.05em;
+}
+
+.p-about-profile__desc {
+  font-size: rem(12);
+  line-height: per-lh(20, 12);
+  color: var(--text-main);
+  margin-top: rem(12);
+}
+
+//* ===============================================
+//# SERVICEセクション
+//=============================================== *//
+.p-about-service__inner {
+  @include about-layout();
+}
+
+.p-about-service__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(fluid(300, 278), 1fr));
+  gap: rem(6);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.p-about-service__item {
+  border: 0.5px solid var(--border-main);
+  padding: rem(10) rem(20);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: rem(140);
+
+  &.--title {
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    min-height: auto;
+
+    @include mq(md) {
+      grid-column: span 2;
+    }
+  }
+}
+
+.p-about-service__heading {
+  margin-bottom: rem(24);
+  @include mq("md") {
+    margin-bottom: 0 !important;
+  }
+}
+
+.p-about-service__name {
+  font-size: rem(16);
+  line-height: per-lh(40, 16);
+}
+
+.p-about-service__desc {
+  font-size: rem(13);
+  line-height: per-lh(24, 13);
+  font-weight: var(--semilight);
+}
+
+//* ===============================================
+//# FLOWセクション
+//=============================================== *//
+.p-about-flow__inner {
+  // @include about-layout();
+}
+
+.p-about-flow__head {
+  p {
+    font-size: fluid(13, 16);
+    line-height: per-lh(24, 16);
+    // margin-top: fluid(24, 50);
+  }
+}
+
+.p-about-flow__body {
+  // display: flex;
+  // flex-direction: column;
+  // gap: rem(40);
+
+  @include mq(lg) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+.p-about-flow__wrapper {
+  position: relative;
+  max-width: fluid(320, 780);
+  margin: fluid(20, 40) auto 0;
+}
+
+.p-about-flow__steps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: rem(6);
+}
+.p-about-flow__img {
+  display: none;
+  @include mq("lg") {
+    display: block;
+    position: absolute;
+    width: rem(290);
+    bottom: rem(-20);
+    right: calc(100% - 120px);
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.p-about-flow__step {
+  color: var(--text-sub);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: var(--bg-sub);
+  border-radius: 12px;
+  padding: 0 rem(20) rem(8) fluid(20, 140);
+  @include mq("lg") {
+    // padding: 0 rem(20) rem(8) rem(140);
+  }
+}
+.p-about-flow__row {
+  display: flex;
+  align-items: center;
+  gap: rem(20);
+}
+
+.p-about-flow__num {
+  font-size: rem(16);
+  line-height: per-lh(40, 16);
+}
+
+.p-about-flow__name {
+  font-size: rem(14);
+  line-height: per-lh(24, 14);
+}
+.p-about-flow__desc {
+  font-size: rem(13);
+  line-height: per-lh(24, 13);
+  font-weight: var(--semilight);
+}
+
+//* ===============================================
+//# NEWS & AWARDセクション
+//=============================================== *//
+.p-about-news-award__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: rem(40);
+
+  @include mq(lg) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: rem(10);
+  }
+}
+
+// NEWS リスト
+.p-about-news__lists {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.p-about-news__list {
+  margin-top: rem(10);
+
+  a {
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: rem(10) rem(20);
+    border: 0.5px solid var(--border-main);
+    transition: opacity 0.3s ease;
+    font-size: rem(13);
+    @include mq(md) {
+      flex-direction: row;
+      gap: rem(24);
+      align-items: baseline;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  time {
+    font-size: rem(13);
+    line-height: per-lh(24, 13);
+    flex-shrink: 0;
+    // margin-bottom: rem(8);
+  }
+}
+
+.p-about-news-award__content {
+  margin-top: rem(10);
+}
+
+.p-about-news__title {
+  font-size: rem(13);
+  font-weight: 350;
+  line-height: per-lh(24, 13);
+}
+
+.p-about-news__more {
+  margin-top: rem(10);
+  text-align: right;
+}
+
+// AWARD リスト
+.p-about-award__lists {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.p-about-award__list {
+  display: flex;
+  align-items: baseline;
+  padding: rem(10) rem(20);
+  margin-top: rem(10);
+  border: 0.5px solid var(--border-main);
+  border-radius: 8px;
+
+  time {
+    font-size: rem(13);
+    flex-shrink: 0;
+    min-width: rem(96);
+    line-height: per-lh(24, 13);
+  }
+}
+
+.p-about-award__year {
+  font-size: rem(14);
+  flex-shrink: 0;
+}
+
+.p-about-award__title {
+  font-size: rem(13);
+  font-weight: normal;
+  line-height: per-lh(24, 13);
+}
+
+//* ===============================================
+//# CONTACTボタン
+//=============================================== *//
+.p-about-contact {
+  text-align: center;
+}
+
+.p-about-contact__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-size: fluid(38, 50);
+  font-family: var(--font-en);
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+  padding: rem(27) rem(29);
+  border: 0.5px solid var(--border-main);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+
+}
+.p-about-contact__link span {
+  margin: 0 rem(20);
+}
+
+
+
+.p-about-contact__btn {
+  margin-top: fluid(20, 100);
+  margin-bottom: fluid(20, 100);
+}

@@ -30,19 +30,6 @@
       line-height: 1;
       position: relative;
       padding-right: rem(25);
-      &::after{
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        width: rem(21);
-        height: rem(21);
-        background-image: url(../img/icon-link.svg);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
     }
   }
   .has-small-font-size{

@@ -232,7 +232,7 @@ get_header();
                         <div class="p-about-news-award__content">
                             <?php
                             $news_query = new WP_Query(array(
-                                'post_type' => 'archive-news',
+                                'post_type' => 'news',
                                 'posts_per_page' => 2,
                             ));
                             if ($news_query->have_posts()):

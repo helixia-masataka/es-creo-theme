@@ -13,7 +13,7 @@ get_header();
             <?php
             $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             $news_query = new WP_Query(array(
-                'post_type'      => 'archive-news',
+                'post_type'      => 'news',
                 'posts_per_page' => 10,
                 'orderby'        => 'date',
                 'order'          => 'DESC',

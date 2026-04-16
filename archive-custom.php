@@ -23,7 +23,7 @@ get_header();
                                     echo '<img src="' . esc_url(get_theme_file_uri('/img/no-image.webp')) . '" alt="No Image">';
                                 }
                                 ?>
-                                <h2><?php the_title(); ?></h2>
+                                <span><?php the_title(); ?></span>
                             </a>
                         </article>
                     </li>

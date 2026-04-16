@@ -30,8 +30,11 @@ get_header();
                                 <?php
                                 $next_post = get_next_post();
                                 if ($next_post): ?>
-                                    <a href="<?php echo esc_url(get_permalink($next_post->ID)); ?>">
-                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-left-hand.svg" alt="" width="24" height="24">
+                                    <a href="<?php echo esc_url(get_permalink($next_post->ID)); ?>" class="c-btn-link">
+                                        <img class="c-btn-icon --black"
+                                            src="<?php echo get_theme_file_uri('/img/icon-left-hand-black.webp'); ?>" alt="">
+                                        <img class="c-btn-icon --white"
+                                            src="<?php echo get_theme_file_uri('/img/icon-left-hand-white.webp'); ?>" alt="">
                                         <span>newer</span>
                                     </a>
                                 <?php endif; ?>
@@ -40,9 +43,12 @@ get_header();
                                 <?php
                                 $prev_post = get_previous_post();
                                 if ($prev_post): ?>
-                                    <a href="<?php echo esc_url(get_permalink($prev_post->ID)); ?>">
+                                    <a href="<?php echo esc_url(get_permalink($prev_post->ID)); ?>" class="c-btn-link">
                                         <span>older</span>
-                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-right-hand.svg" alt="" width="24" height="24">
+                                        <img class="c-btn-icon --black"
+                                            src="<?php echo get_theme_file_uri('/img/icon-right-hand-black.webp'); ?>" alt="">
+                                        <img class="c-btn-icon --white"
+                                            src="<?php echo get_theme_file_uri('/img/icon-right-hand-white.webp'); ?>" alt="">
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -56,3 +62,4 @@ get_header();
 </div>
 
 <?php get_footer(); ?>
+

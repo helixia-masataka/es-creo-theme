@@ -21,37 +21,43 @@ get_header();
             ));
 
             if ($news_query->have_posts()): ?>
-                <div class="p-news-archive__lists">
+                <ul class="p-news-archive__lists">
                     <?php while ($news_query->have_posts()):
                         $news_query->the_post(); ?>
-                        <article id="news-<?php echo get_the_ID(); ?>" class="p-news-archive__item">
-                            <div class="p-news-archive__header">
-                                <time datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date('Y.m.d'); ?></time>
-                                <h2 class="p-news-archive__name"><?php the_title(); ?></h2>
-                            </div>
-                            <div class="p-news-archive__content">
-                                <?php the_content(); ?>
-                            </div>
-                        </article>
+                        <li>
+                            <article id="news-<?php echo get_the_ID(); ?>" class="p-news-archive__item">
+                                <a href="<?php the_permalink(); ?>" class="p-news-archive__item-link">
+                                    <div class="p-news-archive__header">
+                                        <time datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date('Y.m.d'); ?></time>
+                                        <h2 class="p-news-archive__name"><?php the_title(); ?></h2>
+                                    </div>
+                                    <div class="p-news-archive__content">
+                                        <?php the_content(); ?>
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
                     <?php endwhile; ?>
-                </div>
+                </ul>
 
                 <?php if ($news_query->max_num_pages > 1): ?>
                     <nav class="p-single__nav">
                         <div class="p-single__nav-inner">
                             <div class="p-single__nav-item --next">
                                 <?php if ($paged > 1): ?>
-                                    <a href="<?php echo esc_url(get_pagenum_link($paged - 1)); ?>">
-                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-left-hand.svg" alt="" width="24" height="24">
+                                    <a href="<?php echo esc_url(get_pagenum_link($paged - 1)); ?>" class="c-btn-link">
+                                        <img class="c-btn-icon --black" src="<?php echo get_theme_file_uri('/img/icon-left-hand-black.webp'); ?>" alt="">
+                                        <img class="c-btn-icon --white" src="<?php echo get_theme_file_uri('/img/icon-left-hand-white.webp'); ?>" alt="">
                                         <span>newer</span>
                                     </a>
                                 <?php endif; ?>
                             </div>
                             <div class="p-single__nav-item --prev">
                                 <?php if ($paged < $news_query->max_num_pages): ?>
-                                    <a href="<?php echo esc_url(get_pagenum_link($paged + 1)); ?>">
+                                    <a href="<?php echo esc_url(get_pagenum_link($paged + 1)); ?>" class="c-btn-link">
                                         <span>older</span>
-                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/icon-right-hand.svg" alt="" width="24" height="24">
+                                        <img class="c-btn-icon --black" src="<?php echo get_theme_file_uri('/img/icon-right-hand-black.webp'); ?>" alt="">
+                                        <img class="c-btn-icon --white" src="<?php echo get_theme_file_uri('/img/icon-right-hand-white.webp'); ?>" alt="">
                                     </a>
                                 <?php endif; ?>
                             </div>

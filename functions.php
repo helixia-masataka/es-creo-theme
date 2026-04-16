@@ -47,6 +47,7 @@ $inc_files = array(
     'custom-fields-works.php', // 実績詳細用カスタムフィールド
     'custom-fields-about.php', // プロフィール用カスタムフィールド
     'ajax-works.php',         // 実績一覧Ajaxフィルタリング
+    'cf7-honeypot.php',       // Contact Form 7 独自ハニーポット
 );
 
 

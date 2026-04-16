@@ -40,8 +40,8 @@ function helixia_about_profile_meta_box_callback($post)
         $profiles = array(
             array(
                 'image_id' => '',
-                'role' => '',
                 'name' => '',
+                'role' => '',
                 'text' => ''
             )
         );
@@ -123,14 +123,14 @@ function helixia_about_profile_meta_box_callback($post)
                     <button type="button" class="button js-remove-image">画像を削除</button>
                 </div>
                 <div class="helixia-repeater-field">
-                    <label>属性・役職 (例: Web Designer)</label>
-                    <input type="text" name="about_profiles[<?php echo $index; ?>][role]"
-                        value="<?php echo esc_attr($profile['role']); ?>">
-                </div>
-                <div class="helixia-repeater-field">
                     <label>名前</label>
                     <input type="text" name="about_profiles[<?php echo $index; ?>][name]"
                         value="<?php echo esc_attr($profile['name']); ?>">
+                </div>
+                <div class="helixia-repeater-field">
+                    <label>属性・役職 (例: Web Designer)</label>
+                    <input type="text" name="about_profiles[<?php echo $index; ?>][role]"
+                        value="<?php echo esc_attr($profile['role']); ?>">
                 </div>
                 <div class="helixia-repeater-field">
                     <label>テキスト</label>

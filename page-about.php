@@ -293,12 +293,12 @@ get_header();
         <div class="l-container">
             <div class="l-container-l">
                 <div class="p-about-contact__btn">
-                    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="p-about-contact__link">
-                        <img class="p-about-contact__icon --black" src="<?php echo get_theme_file_uri('/img/icon-right-hand-black.webp'); ?>" alt="">
-                        <img class="p-about-contact__icon --white" src="<?php echo get_theme_file_uri('/img/icon-right-hand-white.webp'); ?>" alt="">
+                    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="p-about-contact__link c-btn-link">
+                        <img class="c-btn-icon --black" src="<?php echo get_theme_file_uri('/img/icon-right-hand-black.webp'); ?>" alt="">
+                        <img class="c-btn-icon --white" src="<?php echo get_theme_file_uri('/img/icon-right-hand-white.webp'); ?>" alt="">
                         <span>contact</span>
-                        <img class="p-about-contact__icon --black" src="<?php echo get_theme_file_uri('/img/icon-left-hand-black.webp'); ?>" alt="">
-                        <img class="p-about-contact__icon --white" src="<?php echo get_theme_file_uri('/img/icon-left-hand-white.webp'); ?>" alt="">
+                        <img class="c-btn-icon --black" src="<?php echo get_theme_file_uri('/img/icon-left-hand-black.webp'); ?>" alt="">
+                        <img class="c-btn-icon --white" src="<?php echo get_theme_file_uri('/img/icon-left-hand-white.webp'); ?>" alt="">
                     </a>
                 </div>
             </div>
